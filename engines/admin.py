@@ -24,4 +24,3 @@ class EngineAdmin(admin.ModelAdmin):
     list_filter = ("manufacturer", "type")
     search_fields = ("manufacturer", "model", "serial")
     ordering = ("manufacturer", "model", "serial")
-    readonly_fields = ("serial",)  # Serial number should be read-only after creation

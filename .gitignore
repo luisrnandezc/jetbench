@@ -1,11 +1,11 @@
-# Python cache
-__pycache__/
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.vs/
 
-# Virtual environment
-venv/
-
-# Database
-db.sqlite3
-
-# Environment variables
+# Node / React
+node_modules/
+build/
 .env

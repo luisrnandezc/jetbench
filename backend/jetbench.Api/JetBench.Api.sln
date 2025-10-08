@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetBench.Api", "JetBench.Api\JetBench.Api.csproj", "{70CF23D8-00BD-49E9-98DB-5E31D5E03AFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{70CF23D8-00BD-49E9-98DB-5E31D5E03AFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70CF23D8-00BD-49E9-98DB-5E31D5E03AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70CF23D8-00BD-49E9-98DB-5E31D5E03AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70CF23D8-00BD-49E9-98DB-5E31D5E03AFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C07C8B1-1010-47B7-98BC-421909273158}
+	EndGlobalSection
+EndGlobal

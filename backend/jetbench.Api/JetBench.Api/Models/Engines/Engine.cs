@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using Microsoft.EntityFrameworkCore;
 namespace JetBench.Api.Models.Engines
 {
 
@@ -33,6 +33,7 @@ namespace JetBench.Api.Models.Engines
         OT, // Other
     }
 
+    [Index(nameof(Serial), IsUnique = true)]
     public class Engine
     {
         public int Id { get; set; }

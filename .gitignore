@@ -10,6 +10,9 @@ node_modules/
 build/
 .env
 
+# Databases
+**/jetbench.db
+
 # Others
 x/
 docs/

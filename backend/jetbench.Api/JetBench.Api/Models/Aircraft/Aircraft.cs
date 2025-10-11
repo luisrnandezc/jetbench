@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
+using JetBench.Api.Models.Engines;
 
 namespace JetBench.Api.Models.Aircraft
 {
@@ -89,7 +90,7 @@ namespace JetBench.Api.Models.Aircraft
         // Aircraft relationship
         [Required]
         public int AircraftId { get; set; }
-        public Aircraft Aircraft { get; set; }
+        public required Aircraft Aircraft { get; set; }
 
         // Flight date
         public DateTime FlightDate { get; set; } = DateTime.UtcNow;

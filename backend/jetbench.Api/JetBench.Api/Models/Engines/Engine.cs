@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JetBench.Api.Models.Aircraft;
 using Microsoft.EntityFrameworkCore;
+using AircraftModels = JetBench.Api.Models.Aircraft;
 
 
 namespace JetBench.Api.Models.Engines
@@ -45,7 +46,7 @@ namespace JetBench.Api.Models.Engines
 
         [Required]
         public int? AircraftId { get; set; }
-        public Aircraft? Aircraft { get; set; }
+        public AircraftModels.Aircraft? Aircraft { get; set; }
 
         [Required]
         public EngineManufacturer Manufacturer { get; set; } = EngineManufacturer.OT;
@@ -76,7 +77,7 @@ namespace JetBench.Api.Models.Engines
         [Range(0.0, 9999.9)]
         public decimal TimeBetweenOverhauls { get; set; } = 3500.0m;
 
-        public List<FlightData> FlightRecords { get; set; } = new();
+        public List<EngineFlightRecord> FlightRecords { get; set; } = new();
 
         #endregion model fields
 
@@ -99,12 +100,12 @@ namespace JetBench.Api.Models.Engines
         // Engine relationship
         [Required]
         public int EngineId { get; set; }
-        public Engine Engine { get; set; }
+        public required Engine Engine { get; set; }
 
         // Aircraft Flight Data relationship
         [Required]
         public int AircraftFlightRecordId { get; set; }
-        public AircraftFlightRecord AircraftFlightRecord { get; set; }
+        public required AircraftFlightRecord AircraftFlightRecord { get; set; }
 
         // Low pressure compressor speed (%)
         [Precision(4, 1)]
@@ -153,7 +154,7 @@ namespace JetBench.Api.Models.Engines
 
         public override string ToString()
         {
-            return $"{Engine.Serial} {FlightDate} {FlightHours}";
+            return $"{Engine.Serial} {AircraftFlightRecord.FlightDate} {AircraftFlightRecord.FlightHours}";
         }
 
         // TODO: Implement normalization methods for the temperature and pressure.

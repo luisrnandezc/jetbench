@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using JetBench.Api.Models.Aircraft;
 using Microsoft.EntityFrameworkCore;
+
+
 namespace JetBench.Api.Models.Engines
 {
 
@@ -36,7 +39,13 @@ namespace JetBench.Api.Models.Engines
     [Index(nameof(Serial), IsUnique = true)]
     public class Engine
     {
+        #region model fields
+
         public int Id { get; set; }
+
+        [Required]
+        public int? AircraftId { get; set; }
+        public Aircraft? Aircraft { get; set; }
 
         [Required]
         public EngineManufacturer Manufacturer { get; set; } = EngineManufacturer.OT;
@@ -52,7 +61,6 @@ namespace JetBench.Api.Models.Engines
         [MaxLength(255)]
         public string Serial { get; set; } = "";
 
-        // Current Life Status
         [Range(0.0, 999999.9)]
         public decimal TimeSinceNew { get; set; } = 0.0m;
 
@@ -65,13 +73,92 @@ namespace JetBench.Api.Models.Engines
         [Range(0, 100000)]
         public int CyclesSinceOverhaul { get; set; } = 0;
 
-        // Maintenance Limits
         [Range(0.0, 9999.9)]
         public decimal TimeBetweenOverhauls { get; set; } = 3500.0m;
+
+        public List<FlightData> FlightRecords { get; set; } = new();
+
+        #endregion model fields
+
+        #region model methods
 
         public override string ToString()
         {
             return $"{Manufacturer} {Model} {Serial}";
         }
+
+        #endregion model methods
+    }
+
+    public class EngineFlightRecord
+    {
+        #region model fields
+
+        public int Id { get; set; }
+
+        // Engine relationship
+        [Required]
+        public int EngineId { get; set; }
+        public Engine Engine { get; set; }
+
+        // Aircraft Flight Data relationship
+        [Required]
+        public int AircraftFlightRecordId { get; set; }
+        public AircraftFlightRecord AircraftFlightRecord { get; set; }
+
+        // Low pressure compressor speed (%)
+        [Precision(4, 1)]
+        [Range(0, 110, ErrorMessage="N1 must be between 0 % and 110 %")]
+        public double? SpeedN1 { get; set; }
+
+        // High pressure compressor speed (%)
+        [Precision(4, 1)]
+        [Range(0, 110, ErrorMessage = "N2 must be between 0 % and 110 %")]
+        public double? SpeedN2 { get; set; }
+
+        // Engine Pressure Ratio
+        [Precision(3, 1)]
+        [Range(0, 100, ErrorMessage = "EPR must be between 0 and 100")]
+        public double? EnginePR { get; set; }
+
+        // Interstage Turbine Temperature ITT (°C)
+        [Precision(5, 1)]
+        [Range(0, 10000, ErrorMessage = "ITT must be between 0 °C and 10000 °C")]
+        public decimal? InterstageTT { get; set; }
+
+        // Fuel Flow (kg/h)
+        [Range(0, 50000, ErrorMessage = "FF must be between 0 kg/h and 50000 kg/h")]
+        public int? EngineFF { get; set; }
+
+        // Oil Pressure (psi)
+        [Range(0, 1000, ErrorMessage = "Oil Pressure must be between 0 psi and 1000 psi")]
+        public int? OilPress { get; set; }
+
+        // Oil Temperature (°C)
+        [Range(0, 500, ErrorMessage = "Oil Temperature must be between 0 °C and 500 °C")]
+        public int? OilTemp { get; set; }
+
+        // Total oil added for this flight (quarts)
+        [Range(0, 50, ErrorMessage = "Oil added must be between 0 quarts and 50 quarts")]
+        public int? OilAdded { get; set; }
+
+        // Engine vibration (in/s)
+        [Precision(3, 2)]
+        [Range(0, 10, ErrorMessage = "Engine vibration must be between 0 in/s and 10 in/s")]
+        public decimal? EngineVib { get; set; }
+
+        #endregion model fields
+
+        #region model methods
+
+        public override string ToString()
+        {
+            return $"{Engine.Serial} {FlightDate} {FlightHours}";
+        }
+
+        // TODO: Implement normalization methods for the temperature and pressure.
+
+        #endregion model methods
+
     }
 }

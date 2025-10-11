@@ -43,9 +43,11 @@ namespace JetBench.Api.Models.Aircraft
         OT, // Other
     }
 
-    [Index(nameof(Serial), IsUnique = true)]
+    [Index(nameof(Serial), nameof(Registration), IsUnique = true)]
     public class Aircraft
     {
+        #region model fields
+
         public int Id { get; set; }
 
         [Required]
@@ -66,10 +68,67 @@ namespace JetBench.Api.Models.Aircraft
         [MaxLength(50)]
         public string Registration { get; set; } = "";
 
+        #endregion model fields
+
+        #region model methods
+
         public override string ToString()
         {
             return $"{Manufacturer} {Model} {Registration}";
         }
+
+        #endregion model methods
+    }
+
+    public class AircraftFlightRecord
+    {
+        #region model fields
+
+        public int Id { get; set; }
+
+        // Aircraft relationship
+        [Required]
+        public int AircraftId { get; set; }
+        public Aircraft Aircraft { get; set; }
+
+        // Flight date
+        public DateTime FlightDate { get; set; } = DateTime.UtcNow;
+
+        // Flight hours
+        [Precision(3, 1)]
+        [Range(0, 50, ErrorMessage = "Flight hours must be between 0 h and 50 h")]
+        public double? FlightHours { get; set; } = 0.0;
+
+        // Pressure Altitude (ft)
+        [Range(0, 70000, ErrorMessage = "PA must be between 0 ft and 70000 ft")]
+        public int PressAltitude { get; set; }
+
+        // Outside Air Temperature OAT (°C)
+        [Precision(3, 1)]
+        [Range(-100, 100, ErrorMessage = "OAT must be between -100 °C and 100 °C")]
+        public decimal OutsideAirTemp { get; set; }
+
+        // Indicated Airspeed (kts)
+        [Range(0, 1000, ErrorMessage = "IAS must be between 0 kts and 1000 kts")]
+        public int? IndicatedAirSpeed { get; set; }
+
+        // Mach number
+        [Precision(2, 1)]
+        [Range(0, 3, ErrorMessage = "Mach number must be between 0 and 3")]
+        public decimal? MachNumber { get; set; }
+
+        #endregion model fields
+
+        #region model methods
+
+        public List<EngineFlightRecord> EngineRecords { get; set; } = new();
+
+        public override string ToString()
+        {
+            return $"{Aircraft.Registration} {FlightDate} {FlightHours}";
+        }
+
+        #endregion model methods
     }
 }
 

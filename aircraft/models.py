@@ -50,10 +50,12 @@ class Aircraft(models.Model):
         max_length=255
     )
     serial = models.CharField(
-        max_length=255
+        max_length=255,
+        verbose_name="Aircraft S/N"
     )
     registration = models.CharField(
-        max_length=50
+        max_length=50,
+        help_text="Example: N123456"
     )
     total_time = models.DecimalField(
         max_digits=7,
@@ -62,16 +64,15 @@ class Aircraft(models.Model):
             MinValueValidator(0),
             MaxValueValidator(500000)
         ],
-        default=0
+        default=0,
+        verbose_name="Total Time (hours)",
+        help_text="Example: 2500.5"
     )
-    total_cycles = models.DecimalField(
-        max_digits=6,
-        decimal_places=1,
-        validators=[
-            MinValueValidator(0),
-            MaxValueValidator(100000)
-        ],
-        default=0
+    total_cycles = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(100000)],
+        default=0,
+        verbose_name="Total Cycles",
+        help_text="Example: 1200",
     )
 
     class Meta:
@@ -99,43 +100,43 @@ class AircraftFlightRecord(models.Model):
         related_name="flight_records",
         verbose_name="Aircraft"
     )
-    flight_date = models.DateTimeField(
-        verbose_name="Flight Date"
+    flight_date = models.DateField(
+        help_text="Flight date",
     )
     flight_hours = models.DecimalField(
         max_digits=3,
         decimal_places=1,
         validators=[MinValueValidator(0), MaxValueValidator(50)],
         default=0,
-        verbose_name="Flight Hours"
+        help_text="Example: 2.5",
     )
     press_altitude = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(70000)],
-        help_text="Pressure Altitude in feet",
-        verbose_name="Pressure Altitude"
+        verbose_name="Cruise Pressure Altitude (feet)",
+        help_text="Example: 27500",
     )
     outside_air_temp = models.DecimalField(
         max_digits=3,
         decimal_places=1,
         validators=[MinValueValidator(-100), MaxValueValidator(100)],
-        help_text="OAT in degrees Celsius",
-        verbose_name="Outside Air Temperature"
+        verbose_name="Cruise OAT (°C)",
+        help_text="Example: -38.5",
     )
     indicated_air_speed = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(1000)],
         null=True,
         blank=True,
-        help_text="IAS in knots",
-        verbose_name="Indicated Air Speed"
+        verbose_name="Cruise IAS (knots)",
+        help_text="Example: 320",
     )
     mach_number = models.DecimalField(
-        max_digits=2,
+        max_digits=3,
         decimal_places=1,
         validators=[MinValueValidator(0), MaxValueValidator(3)],
         null=True,
         blank=True,
-        help_text="Mach Number",
-        verbose_name="Mach Number"
+        verbose_name="Cruise Mach Number",
+        help_text="Example: 0.85",
     )
     created_at = models.DateTimeField(
         auto_now_add=True,

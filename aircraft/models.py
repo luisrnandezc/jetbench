@@ -44,14 +44,16 @@ class Aircraft(models.Model):
     aircraft_type = models.CharField(
         max_length=2,
         choices=AircraftType.choices,
-        default=AircraftType.OT
+        default=AircraftType.OT,
+        verbose_name="Type"
     )
     model = models.CharField(
-        max_length=255
+        max_length=255,
+        help_text="Example: King Air 350"
     )
     serial = models.CharField(
         max_length=255,
-        verbose_name="Aircraft S/N"
+        verbose_name="S/N"
     )
     registration = models.CharField(
         max_length=50,

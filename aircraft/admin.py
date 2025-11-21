@@ -45,7 +45,7 @@ class AircraftFlightRecordAdmin(admin.ModelAdmin):
         ("Flight Information", {
             "fields": ("aircraft", "flight_date", "flight_hours")
         }),
-        ("Flight Conditions", {
+        ("Cruise Flight Conditions", {
             "fields": ("press_altitude", "outside_air_temp", "indicated_air_speed", "mach_number")
         }),
         ("System Information", {

@@ -10,5 +10,10 @@ db.sqlite3
 # Environment variables
 .env
 
+<<<<<<< Updated upstream
 # Media files
 docs/
+=======
+# Documentation
+docs/
+>>>>>>> Stashed changes

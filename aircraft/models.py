@@ -90,17 +90,17 @@ class Aircraft(models.Model):
 
 
 # ============================
-# AIRCRAFT FLIGHT RECORD MODEL
+# FLIGHT MODEL
 # ============================
 
-class AircraftFlightRecord(models.Model):
-    """" A model to record flight data for an aircraft """
+class Flight(models.Model):
+    """" A simple model to record a flight """
     
     aircraft = models.ForeignKey(
         Aircraft,
         on_delete=models.CASCADE,
-        related_name="flight_records",
-        verbose_name="Aircraft"
+        related_name="flights",
+        verbose_name="Aircraft",
     )
     flight_date = models.DateField(
         help_text="Flight date",
@@ -111,6 +111,28 @@ class AircraftFlightRecord(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(50)],
         default=0,
         help_text="Example: 2.5",
+    )
+
+    class Meta:
+        ordering = ["-flight_date"]
+        verbose_name = "Flight"
+        verbose_name_plural = "Flights"
+
+    def __str__(self):
+        return f"{self.aircraft.registration} {self.flight_date} {self.flight_hours}"
+
+# ============================
+# FLIGHT ENGINE DATA MODEL
+# ============================
+
+class FlightEngineData(models.Model):
+    """" A model to record engine data for a flight """
+    
+    flight = models.ForeignKey(
+        Flight,
+        on_delete=models.CASCADE,
+        related_name="engine_data",
+        verbose_name="Flight",
     )
     press_altitude = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(70000)],
@@ -150,9 +172,9 @@ class AircraftFlightRecord(models.Model):
     )
 
     class Meta:
-        ordering = ["-flight_date"]
-        verbose_name = "Aircraft Flight Record"
-        verbose_name_plural = "Aircraft Flight Records"
+        ordering = ["-flight__flight_date"]
+        verbose_name = "Flight Engine Data"
+        verbose_name_plural = "Flight Engine Data"
 
     def __str__(self):
-        return f"{self.aircraft.registration} {self.flight_date} {self.flight_hours}"
+        return f"{self.flight.aircraft.registration} {self.flight.flight_date} {self.flight.flight_hours}"

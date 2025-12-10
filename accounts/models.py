@@ -14,7 +14,8 @@ class CustomUser(AbstractUser):
 
     email = models.EmailField(
         unique=True,
-        help_text="Example: john.doe@example.com"
+        help_text="Example: john.doe@example.com",
+        verbose_name="Email Address"
     )
     username = models.CharField(
         max_length=150,

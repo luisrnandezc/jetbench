@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'engines',
     'analytics',
     'aircraft',
+    'finance',
 ]
 
 MIDDLEWARE = [

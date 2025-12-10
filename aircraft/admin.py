@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Aircraft, AircraftFlightRecord
+from .models import Aircraft, Flight, FlightEngineData
 
 
 @admin.register(Aircraft)
@@ -36,14 +36,34 @@ class AircraftAdmin(admin.ModelAdmin):
         return obj.get_aircraft_type_display()
     get_aircraft_type_display.short_description = "Aircraft Type"
 
-
-@admin.register(AircraftFlightRecord)
-class AircraftFlightRecordAdmin(admin.ModelAdmin):
-    model = AircraftFlightRecord
+@admin.register(Flight)
+class FlightAdmin(admin.ModelAdmin):
+    model = Flight
 
     fieldsets = (
         ("Flight Information", {
             "fields": ("aircraft", "flight_date", "flight_hours")
+        }),
+    )
+
+    list_display = (
+        "aircraft",
+        "flight_date",
+        "flight_hours",
+    )
+    list_filter = ("flight_date", "aircraft__manufacturer", "aircraft__aircraft_type")
+    search_fields = ("aircraft__registration", "aircraft__model", "aircraft__serial")
+    date_hierarchy = "flight_date"
+    ordering = ("-flight_date",)
+
+
+@admin.register(FlightEngineData)
+class FlightEngineDataAdmin(admin.ModelAdmin):
+    model = FlightEngineData
+
+    fieldsets = (
+        ("Flight Information", {
+            "fields": ("flight",)
         }),
         ("Cruise Flight Conditions", {
             "fields": ("press_altitude", "outside_air_temp", "indicated_air_speed", "mach_number")
@@ -57,15 +77,15 @@ class AircraftFlightRecordAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at")
 
     list_display = (
-        "aircraft",
-        "flight_date",
-        "flight_hours",
+        "flight",
         "press_altitude",
         "outside_air_temp",
         "indicated_air_speed",
-        "mach_number"
+        "mach_number",
+        "created_at",
+        "updated_at"
     )
-    list_filter = ("flight_date", "aircraft", "press_altitude")
-    search_fields = ("aircraft__registration", "aircraft__model", "aircraft__serial")
-    date_hierarchy = "flight_date"
-    ordering = ("-flight_date",)
+    list_filter = ("flight__aircraft__registration", "press_altitude", "flight__flight_date")
+    search_fields = ("flight__aircraft__registration", "flight__aircraft__model", "flight__aircraft__serial")
+    date_hierarchy = "flight__flight_date"
+    ordering = ("-flight__flight_date",)

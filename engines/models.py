@@ -25,7 +25,7 @@ class Engine(models.Model):
         default="",
         choices=EngineManufacturer.choices
     )
-    type = models.CharField(
+    engine_type = models.CharField(
         max_length=255, 
         blank=True,
         null=False,

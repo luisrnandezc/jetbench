@@ -2,6 +2,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import styles from "./Login.module.css";
 
 export default function Login() {
 	const { login, user } = useContext(AuthContext);
@@ -30,16 +31,31 @@ export default function Login() {
 	};
 
 	return (
-		<div style={{ maxWidth: 420, margin: "auto", padding: 20 }}>
-			<h2>Sign in</h2>
-			<form onSubmit={handleSubmit}>
-				<label>Email</label>
-				<input value={email} onChange={(e) => setEmail(e.target.value)} required />
-				<label>Password</label>
-				<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-				{error && <div style={{ color: "red" }}>{error}</div>}
-				<button type="submit">Sign in</button>
-			</form>
+		<div className={styles.page}>
+			<div className={styles.card}>
+				<h2 className={styles.title}>Sign in</h2>
+				<form onSubmit={handleSubmit} className={styles.form}>
+					<label className={styles.label}>Email</label>
+					<input
+						className={styles.input}
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						required
+					/>
+					<label className={styles.label}>Password</label>
+					<input
+						className={styles.input}
+						type="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						required
+					/>
+					{error && <div className={styles.error}>{error}</div>}
+					<button type="submit" className={styles.button}>
+						Sign in
+					</button>
+				</form>
+			</div>
 		</div>
 	);
 }

@@ -8,7 +8,7 @@ class AircraftAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Aircraft Information", {
-            "fields": ("manufacturer", "aircraft_type", "model", "serial", "registration")
+            "fields": ("manufacturer", "aircraft_type", "model", "registration", "serial")
         }),
         ("Time & Cycles", {
             "fields": ("total_time", "total_cycles")
@@ -65,7 +65,7 @@ class FlightEngineDataAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Flight Information", {
-            "fields": ("flight", "flight__departure_airport", "flight__arrival_airport")
+            "fields": ("flight", "get_departure_airport", "get_arrival_airport")
         }),
         ("Cruise Flight Conditions", {
             "fields": ("press_altitude", "outside_air_temp", "indicated_air_speed", "mach_number")
@@ -76,12 +76,12 @@ class FlightEngineDataAdmin(admin.ModelAdmin):
         }),
     )
 
-    readonly_fields = ("created_at", "updated_at")
+    readonly_fields = ("created_at", "updated_at", "get_departure_airport", "get_arrival_airport")
 
     list_display = (
         "flight",
-        "flight__departure_airport",
-        "flight__arrival_airport",
+        "get_departure_airport",
+        "get_arrival_airport",
         "press_altitude",
         "outside_air_temp",
         "indicated_air_speed",
@@ -93,3 +93,11 @@ class FlightEngineDataAdmin(admin.ModelAdmin):
     search_fields = ("flight__aircraft__registration", "flight__aircraft__model", "flight__aircraft__serial")
     date_hierarchy = "flight__flight_date"
     ordering = ("-flight__flight_date",)
+
+    @admin.display(description="Departure Airport")
+    def get_departure_airport(self, obj):
+        return getattr(obj.flight, "departure_airport", "")
+
+    @admin.display(description="Arrival Airport")
+    def get_arrival_airport(self, obj):
+        return getattr(obj.flight, "arrival_airport", "")

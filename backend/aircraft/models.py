@@ -67,14 +67,14 @@ class Aircraft(models.Model):
             MaxValueValidator(500000)
         ],
         default=0,
-        verbose_name="Total Time (hours)",
-        help_text="Example: 2500.5"
+        verbose_name="TTAF",
+        help_text="Total Time Airframe in Hours. Example: 2500.5"
     )
     total_cycles = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(100000)],
         default=0,
-        verbose_name="Total Cycles",
-        help_text="Example: 1200",
+        verbose_name="TAC",
+        help_text="Total Accumulated Cycles. Example: 1200",
     )
 
     class Meta:
@@ -84,9 +84,25 @@ class Aircraft(models.Model):
                 name="unique_aircraft"
             )
         ]
+
+    def save(self, *args, **kwargs):
+
+        if self.aircraft_type:
+            self.aircraft_type = self.aircraft_type.upper()
+
+        if self.model:
+            self.model = self.model.upper()
+
+        if self.registration:
+            self.registration = self.registration.upper()
+
+        if self.serial:
+            self.serial = self.serial.upper()
+
+        super().save(*args, **kwargs)
     
     def __str__(self):
-        return f"{self.get_manufacturer_display()} {self.model} {self.serial} {self.registration}"
+        return f"{self.registration}"
 
 
 # ============================
@@ -126,8 +142,18 @@ class Flight(models.Model):
         verbose_name = "Flight"
         verbose_name_plural = "Flights"
 
+    def save(self, *args, **kwargs):
+
+        if self.departure_airport:
+            self.departure_airport = self.departure_airport.upper()
+
+        if self.arrival_airport:
+            self.arrival_airport = self.arrival_airport.upper()
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return f"{self.departure_airport}-{self.arrival_airport} | {self.aircraft.registration} | {self.flight_date} | {self.hours_flown} hours"
+        return f"{self.departure_airport}-{self.arrival_airport} | {self.aircraft.registration} | {self.flight_date}"
 
 # ============================
 # FLIGHT ENGINE DATA MODEL

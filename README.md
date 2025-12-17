@@ -1,53 +1,52 @@
 # JetBench
 
-A comprehensive web platform for jet engine health monitoring with intelligent analytics and AI-powered analysis tools. Designed specifically for turboprop and turbofan engines, JetBench provides real-time monitoring, predictive maintenance insights, and comprehensive engine lifecycle management.
+A comprehensive aviation operations platform covering engine health monitoring, aircraft maintenance records, flight expense tracking and visualization, and an AI-powered Safety Management System. Designed for business aviation operations, JetBench provides real-time insights, predictive maintenance support, and clear cost and safety visibility.
 
 ## Overview
 
-JetBench is a web-based platform that enables aircraft operators, maintenance teams, and engineers to track, analyze, and optimize engine health and performance. The platform offers detailed tracking of engine parameters, flight records, and maintenance schedules, with advanced analytics capabilities for predictive maintenance and performance optimization.
+JetBench helps operators, maintenance teams, and finance leaders track, analyze, and optimize aircraft operations. It centralizes engine health, aircraft records, flight expenses, and safety signals with AI-driven analytics for proactive decisions and clear visibility.
 
 ## Features
 
-### Engine Management
-- Comprehensive engine tracking with manufacturer and model information
-- Time Since New (TSN) and Cycles Since New (CSN) monitoring
-- Time Since Overhaul (TSO) and Cycles Since Overhaul (CSO) tracking
-- Time Between Overhauls (TBO) configuration and alerts
-- Maintenance task recording and due date alerts
-- Support for multiple engine types: Turbojet, Turbofan, Turboprop, and Turboshaft
+### Engine Health Monitoring
+- Comprehensive engine tracking with manufacturer, model, and lifecycle metrics
+- TSN/CSN, TSO/CSO, and TBO tracking with alerts
+- Engine performance parameters and trend analysis
 
-### Aircraft Management
-- Complete aircraft registry with manufacturer, model, and serial number tracking
-- Registration and identification management
-- Total time and cycle tracking
-- Support for various aircraft types: Single Engine Turboprop, Twin Engine Turboprop, Single Engine Jet, Twin Engine Jet, and Three Engine Jet
+### Aircraft Maintenance Records
+- Complete aircraft registry with time and cycle tracking
+- Maintenance task recording, due dates, and compliance visibility
+- Support for business aircraft fleets with role-based access
 
 ### Flight Records
-- Detailed flight data logging
-- Flight hours tracking
-- Recording and monitoring of essential flight parameters including altitude, temperature, airspeed, and Mach number
-- Comprehensive flight history with timestamps
+- Flight logging with hours, key parameters, and history
+- Context for performance and maintenance planning
+
+### Flight Expenses Tracking & Visualization
+- Track fuel and trip expenses per flight
+- Visualize spending by aircraft, route, and category
+- Support for payment methods and cost breakdowns
+
+### AI-Powered Safety Management System (SMS)
+- AI-assisted identification of safety signals and trends
+- Proactive recommendations to reduce operational risk
 
 ### Analytics and Intelligence
-- AI-powered analysis tools for engine health prediction
-- Intelligent analytics for performance optimization
-- Predictive maintenance scheduling
-- Performance trend analysis
+- Predictive maintenance indicators and performance trends
+- Cost and safety dashboards for decision-makers
 
 ### User Management
 - Role-based access control (Pilot, Mechanic, Engineer, Staff, Owner, Admin)
-- Secure email-based authentication
-- Company and organization management
-- Secure user profiles and permissions
+- Secure, email-based authentication
 
 ## Benefits
 
 JetBench helps you:
-- Reduce maintenance costs through predictive maintenance scheduling
-- Improve safety by tracking engine health and performance trends
-- Optimize operations with comprehensive flight and engine data analysis
-- Ensure compliance with detailed record-keeping and reporting
-- Make informed decisions with AI-powered insights and analytics
+- Reduce maintenance and operating costs with predictive insights
+- Improve safety with AI-driven signal detection and SMS workflows
+- Gain clear visibility into flight expenses and operational drivers
+- Keep aircraft and engine records compliant and audit-ready
+- Make informed decisions with focused, role-aware dashboards
 
 ## License
 
@@ -59,11 +58,10 @@ For inquiries or questions, please contact luisrnandezc@gmail.com
 
 ## Roadmap
 
-- Enhanced predictive maintenance algorithms
-- Real-time engine monitoring integration
-- Advanced analytics dashboards
-- Mobile application support
-- API documentation and third-party integrations
-- Automated report generation
+- Expanded expense analytics and forecasting
+- Real-time engine and flight data integration
+- Safety case management and automated briefings
+- Mobile access for crews and maintenance teams
+- Third-party integrations and automated reporting
 - Multi-tenant support for fleet operators
 

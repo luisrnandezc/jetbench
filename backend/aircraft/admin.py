@@ -42,14 +42,16 @@ class FlightAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Flight Information", {
-            "fields": ("aircraft", "flight_date", "flight_hours")
+            "fields": ("aircraft", "flight_date", "departure_airport", "arrival_airport", "hours_flown")
         }),
     )
 
     list_display = (
         "aircraft",
+        "departure_airport",
+        "arrival_airport",
         "flight_date",
-        "flight_hours",
+        "hours_flown",
     )
     list_filter = ("flight_date", "aircraft__manufacturer", "aircraft__aircraft_type")
     search_fields = ("aircraft__registration", "aircraft__model", "aircraft__serial")
@@ -63,7 +65,7 @@ class FlightEngineDataAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Flight Information", {
-            "fields": ("flight",)
+            "fields": ("flight", "flight__departure_airport", "flight__arrival_airport")
         }),
         ("Cruise Flight Conditions", {
             "fields": ("press_altitude", "outside_air_temp", "indicated_air_speed", "mach_number")
@@ -78,6 +80,8 @@ class FlightEngineDataAdmin(admin.ModelAdmin):
 
     list_display = (
         "flight",
+        "flight__departure_airport",
+        "flight__arrival_airport",
         "press_altitude",
         "outside_air_temp",
         "indicated_air_speed",

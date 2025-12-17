@@ -105,11 +105,19 @@ class Flight(models.Model):
     flight_date = models.DateField(
         help_text="Flight date",
     )
-    flight_hours = models.DecimalField(
+    departure_airport = models.CharField(
+        max_length=4,
+        help_text="For example: KJFK",
+    )
+    arrival_airport = models.CharField(
+        max_length=4,
+        help_text="For example: LFPG",
+    )
+    hours_flown = models.DecimalField(
         max_digits=3,
         decimal_places=1,
         validators=[MinValueValidator(0), MaxValueValidator(50)],
-        default=0,
+        default=0.0,
         help_text="Example: 2.5",
     )
 
@@ -119,7 +127,7 @@ class Flight(models.Model):
         verbose_name_plural = "Flights"
 
     def __str__(self):
-        return f"{self.aircraft.registration} {self.flight_date} {self.flight_hours}"
+        return f"{self.departure_airport}-{self.arrival_airport} | {self.aircraft.registration} | {self.flight_date} | {self.hours_flown} hours"
 
 # ============================
 # FLIGHT ENGINE DATA MODEL

@@ -36,6 +36,15 @@ class AircraftType(models.TextChoices):
 class Aircraft(models.Model):
     """ A model to represent an aircraft """
 
+    TEMPERATURE_UNIT_CHOICES = [
+        ("C", "°C"),
+        ("F", "°F"),
+    ]
+    FUEL_FLOW_UNIT_CHOICES = [
+        ("KPH", "kg/h"),
+        ("LPH", "lb/h"),
+    ]
+
     manufacturer = models.CharField(
         max_length=2,
         choices=AircraftManufacturer.choices,
@@ -75,6 +84,12 @@ class Aircraft(models.Model):
         default=0,
         verbose_name="TAC",
         help_text="Total Accumulated Cycles. Example: 1200",
+    )
+    fuel_flow_unit = models.CharField(
+        max_length=3,
+        choices=FUEL_FLOW_UNIT_CHOICES,
+        default="kgh",
+        verbose_name="Fuel Flow Unit",
     )
 
     class Meta:
@@ -177,7 +192,7 @@ class FlightEngineData(models.Model):
         max_digits=3,
         decimal_places=1,
         validators=[MinValueValidator(-100), MaxValueValidator(100)],
-        verbose_name="Cruise OAT (°C)",
+        verbose_name="Cruise OAT",
         help_text="Example: -38.5",
     )
     indicated_air_speed = models.IntegerField(
@@ -195,6 +210,72 @@ class FlightEngineData(models.Model):
         blank=True,
         verbose_name="Cruise Mach Number",
         help_text="Example: 0.85",
+    )
+    SpeedN1 = models.DecimalField(
+        max_digits=4, 
+        decimal_places=1,
+        null=True, 
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(120)],
+        verbose_name="LPC Speed (%)",
+        help_text="Low Pressure Compressor Speed. Example: 85.5",
+    )
+    SpeedN2 = models.DecimalField(
+        max_digits=4, 
+        decimal_places=1,
+        null=True, 
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(120)],
+        verbose_name="HPC Speed (%)",
+        help_text="High Pressure Compressor Speed. Example: 97.2",
+    )
+    EnginePR = models.DecimalField(
+        max_digits=3, 
+        decimal_places=2,
+        null=True, 
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(10)],
+        verbose_name="EPR",
+        help_text="Engine Pressure Ratio. Example: 1.53",
+    )
+    InterstageTT = models.DecimalField(
+        max_digits=5, 
+        decimal_places=1,
+        null=True, 
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(10000)],
+        verbose_name="ITT",
+        help_text="Interstage Turbine Temperature. Example: 1090.5",
+    )
+    EngineFF = models.IntegerField(
+        null=True, 
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(50000)],
+        verbose_name="FF",
+        help_text="Fuel Flow. Example: 1200.5",
+    )
+    OilPress = models.IntegerField(
+        null=True, 
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(1000)]
+    )
+    OilTemp = models.IntegerField(
+        null=True, 
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(500)]
+    )
+    OilAdded = models.IntegerField(
+        null=True, 
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(50)]
+    )
+    EngineVib = models.DecimalField(
+        max_digits=3, 
+        decimal_places=2,
+        null=True, blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(10)],
+        verbose_name="Engine Vibration",
+        help_text="Example: 0.56",
     )
     created_at = models.DateTimeField(
         auto_now_add=True,

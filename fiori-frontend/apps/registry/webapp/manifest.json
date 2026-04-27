@@ -1,0 +1,45 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "jetbench.registry",
+    "type": "application",
+    "title": "JetBench Registry",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "http://localhost:4004/odata/v4/registry/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.143.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "rootView": {
+      "viewName": "jetbench.registry.view.Main",
+      "type": "XML",
+      "async": true,
+      "id": "rootView"
+    },
+    "models": {
+      "": {
+        "dataSource": "mainService",
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true
+        }
+      }
+    }
+  }
+}

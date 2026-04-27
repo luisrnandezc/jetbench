@@ -1,0 +1,19 @@
+# Frontend dependencies
+node_modules/
+
+# Frontend build outputs
+dist/
+build/
+coverage/
+.ui5/
+
+# Frontend env files
+.env
+.env.*
+!.env.example
+
+# Frontend logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

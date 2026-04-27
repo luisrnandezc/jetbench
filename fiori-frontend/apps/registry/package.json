@@ -1,0 +1,19 @@
+{
+    "name": "jetbench.registry",
+    "version": "1.0.0",
+    "description": "Fiori registry app",
+    "scripts": {
+      "start": "ui5 serve -o index.html",
+      "build": "ui5 build --clean-dest --dest dist"
+    },
+    "devDependencies": {
+      "@ui5/cli": "^4.0.0",
+      "@openui5/ts-types": "^1.143.1",
+      "@types/openui5": "^1.143.0",
+      "typescript": "^5.9.3",
+      "ui5-middleware-livereload": "^3.2.1",
+      "ui5-middleware-serveframework": "^3.7.1",
+      "ui5-tooling-transpile": "^3.10.1"
+    }
+  }
+  

@@ -1,0 +1,3 @@
+ID,tailNumber,serialNumber,aircraftModel_ID,totalFlightHours,totalCycles
+1,N123JB,MSN001,1,12000,8000
+2,N456JB,MSN002,2,9000,6000

@@ -1,0 +1,10 @@
+<mvc:View
+  controllerName="jetbench.registry.controller.Main"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m">
+  <Page title="Registry">
+    <content>
+      <Text text="JetBench Registry" />
+    </content>
+  </Page>
+</mvc:View>

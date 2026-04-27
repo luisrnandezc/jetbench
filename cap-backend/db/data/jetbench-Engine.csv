@@ -1,0 +1,5 @@
+ID,engineSerialNumber,positionCode,engineModel_ID,aircraft_ID,totalFlightHours,totalCycles
+1,ENG001,ENG1,1,1,6000,4000
+2,ENG002,ENG2,1,1,6000,4000
+3,ENG003,ENG1,2,2,4500,3000
+4,ENG004,ENG2,2,2,4500,3000

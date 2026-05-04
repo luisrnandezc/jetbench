@@ -9,7 +9,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "http://localhost:4004/odata/v4/registry/",
+        "uri": "/odata/v4/registry/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0"
@@ -26,18 +26,44 @@
       }
     },
     "rootView": {
-      "viewName": "jetbench.registry.view.Main",
+      "viewName": "jetbench.registry.view.App",
       "type": "XML",
-      "async": true,
+      "async": false,
       "id": "rootView"
     },
     "models": {
       "": {
+        "type": "sap.ui.model.odata.v4.ODataModel",
         "dataSource": "mainService",
+        "preload": true,
         "settings": {
           "synchronizationMode": "None",
           "operationMode": "Server",
           "autoExpandSelect": true
+        }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "jetbench.registry.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "main",
+          "target": "main"
+        }
+      ],
+      "targets": {
+        "main": {
+          "viewType": "XML",
+          "viewId": "main",
+          "viewName": "Main"
         }
       }
     }

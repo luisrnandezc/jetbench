@@ -1,4 +1,5 @@
-sap.ui.define("jetbench/registry/Component-preload", [], function () {
-  "use strict";
-  return {};
-});
+/**
+ * Development stub: the runtime may request Component-preload.js alongside the
+ * component. Replace with a build-generated bundle in production if needed.
+ */
+sap.ui.require.preload({});

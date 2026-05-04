@@ -5,15 +5,11 @@ import UIComponent from "sap/ui/core/UIComponent";
  */
 export default class Component extends UIComponent {
   public static metadata = {
-    manifest: "json",
-    interfaces: ["sap.ui.core.IAsyncContentCreation"]
+    manifest: "json"
   };
 
   public init(): void {
     super.init();
-    const router = this.getRouter();
-    if (router) {
-      router.initialize();
-    }
+    // Router init runs in App.controller after the shell (sap.m.App) exists.
   }
 }

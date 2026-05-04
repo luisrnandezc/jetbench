@@ -1,3 +1,5 @@
-ID,code,name,manufacturer
-1,A320,A320-200,Airbus
-2,B737,B737-800,Boeing
+ID,code,name,manufacturer,numberOfEngines,engineType
+1,C550,Citation 550,Cessna,2,Turbofan
+2,CJ4,Citation CJ4,Cessna,2,Turbofan
+3,K350,King Air 350,Beechcraft,2,Turboprop
+4,M700,Fury 700,Piper,1,Turboprop

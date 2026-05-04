@@ -2,9 +2,68 @@
   controllerName="jetbench.registry.controller.Main"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m">
-  <Page title="Registry">
+  <Page title="Registry App">
     <content>
-      <Text text="JetBench Registry" />
+      <VBox class="sapUiSmallMargin">
+        <Title text="Aircraft Registered" level="H2" class="sapUiSmallMarginBottom" />
+        <Table
+          id="aircraftTable"
+          growing="true"
+          growingThreshold="20"
+          items="{/Aircraft}">
+          <columns>
+            <Column width="12rem" hAlign="Center"><Text text="Tail number" /></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Serial number" /></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Manufacturer" /></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Model" /></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Flight hours" /></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Cycles" /></Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{tailNumber}" />
+                <Text text="{serialNumber}" />
+                <Text text="{aircraftModel/manufacturer}" />
+                <Text text="{aircraftModel/name}" />
+                <Text text="{totalFlightHours}" />
+                <Text text="{totalCycles}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </VBox>
+      <VBox class="sapUiSmallMargin">
+        <Title text="Engines Registered" level="H2" class="sapUiSmallMarginBottom" />
+        <Table
+          id="engineTable"
+          growing="true"
+          growingThreshold="20"
+          items="{/Engines}">
+          <columns>
+            <Column width="12rem" hAlign="Center"><Text text="Engine S/N" /></Column>
+            <Column width="12rem" hAlign="Center"><Text text="Aircraft T/N" /></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Position code" /></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Manufacturer" /></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Model" /></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Flight hours" /></Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Cycles" /></Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{engineSerialNumber}" />
+                <Text text="{aircraft/tailNumber}" />
+                <Text text="{positionCode}" />
+                <Text text="{engineModel/manufacturer}" />
+                <Text text="{engineModel/name}" />
+                <Text text="{totalFlightHours}" />
+                <Text text="{totalCycles}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </VBox>
     </content>
   </Page>
 </mvc:View>

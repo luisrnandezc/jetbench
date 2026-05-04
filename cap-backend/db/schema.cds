@@ -5,6 +5,8 @@ entity AircraftModel {
       code        : String(20);
       name        : String(100);
       manufacturer: String(100);
+      numberOfEngines: Integer;
+      engineType: String(20);
 }
 
 entity Aircraft {
@@ -14,6 +16,7 @@ entity Aircraft {
       aircraftModel   : Association to AircraftModel;
       totalFlightHours: Decimal(10,2);
       totalCycles     : Integer;
+      installedEngineModel : Association to EngineModel;
 }
 
 entity EngineModel {

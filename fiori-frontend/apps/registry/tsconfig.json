@@ -12,7 +12,9 @@
     "baseUrl": "./",
     "paths": {
       "jetbench/registry/*": ["webapp/*"]
-    }
+    },
+    "types": ["@openui5/types"],
+    "ignoreDeprecations": "6.0"
   },
   "include": ["webapp/**/*"]
 }

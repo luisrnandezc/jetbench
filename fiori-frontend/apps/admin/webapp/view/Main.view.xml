@@ -1,0 +1,53 @@
+<mvc:View
+  controllerName="jetbench.admin.controller.Main"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m">
+  <Page title="Admin">
+    <subHeader>
+      <Toolbar>
+        <ToolbarSpacer />
+        <Button icon="sap-icon://add" text="New Organization" press=".onOpenCreateDialog" />
+      </Toolbar>
+    </subHeader>
+    <content>
+      <Table
+        id="organizationsTable"
+        growing="true"
+        growingThreshold="20"
+        items="{/Organizations}">
+        <columns>
+          <Column width="12rem" hAlign="Center"><Text text="Name" /></Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Code" /></Column>
+          <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Country" /></Column>
+        </columns>
+        <items>
+          <ColumnListItem>
+            <cells>
+              <Text text="{name}" />
+              <Text text="{code}" />
+              <Text text="{country}" />
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+      <Dialog id="createOrganizationDialog" title="Register Organization" stretch="true" class="sapUiResponsivePadding">
+        <content>
+          <VBox width="100%" class="sapUiSmallMargin">
+            <Label text="Name" labelFor="orgNameInput" />
+            <Input id="orgNameInput" width="100%" />
+            <Label text="Code" labelFor="orgCodeInput" />
+            <Input id="orgCodeInput" width="100%" />
+            <Label text="Country" labelFor="orgCountryInput" />
+            <Input id="orgCountryInput" width="100%" />
+          </VBox>
+        </content>
+        <beginButton>
+          <Button text="Cancel" press=".onCloseCreateDialog" />
+        </beginButton>
+        <endButton>
+          <Button text="Create" type="Emphasized" press=".onCreateOrganization" />
+        </endButton>
+      </Dialog>
+    </content>
+  </Page>
+</mvc:View>

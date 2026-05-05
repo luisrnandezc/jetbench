@@ -1,7 +1,3 @@
-ID,tailNumber,serialNumber,aircraftModel_ID,totalFlightHours,totalCycles,installedEngineModel_ID
-1,YV1111,550-111,1,5000,2500,1
-2,YV2222,350-222,3,7000,3500,2
-3,YV3333,550-333,1,10000,5000,1
-4,YV4444,350-444,3,1000,500,2
-5,YV5555,525-555,2,4000,2000,4
-6,YV6666,700-666,4,2000,1000,3
+ID,tailNumber,serialNumber,aircraftModel_ID,totalFlightHours,totalCycles,installedEngineModel_ID,organization_ID
+1,YV1111,525-111,1,5000,2500,1,1
+2,YV2222,350-222,2,2500,1250,2,2

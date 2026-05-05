@@ -17,6 +17,7 @@ entity Aircraft {
       totalFlightHours: Decimal(10,2);
       totalCycles     : Integer;
       installedEngineModel : Association to EngineModel;
+      organization    : Association to Organization;
 }
 
 entity EngineModel {
@@ -34,10 +35,18 @@ entity Engine {
       aircraft           : Association to Aircraft;
       totalFlightHours   : Decimal(10,2);
       totalCycles        : Integer;
+      organization       : Association to Organization;
 }
 
 entity Technician {
   key ID             : UUID;
       employeeNumber : String(20);
       fullName       : String(100);
+}
+
+entity Organization {
+  key ID      : UUID;
+      name    : String(100);
+      code    : String(20);
+      country : String(50);
 }

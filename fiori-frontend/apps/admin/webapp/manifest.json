@@ -9,7 +9,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/registry/",
+        "uri": "/odata/v4/admin/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0"

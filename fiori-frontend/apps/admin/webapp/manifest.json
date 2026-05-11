@@ -57,6 +57,16 @@
           "pattern": "",
           "name": "main",
           "target": "main"
+        },
+        {
+          "pattern": "organizations/{ID}",
+          "name": "organizationDetail",
+          "target": "organizationDetail"
+        },
+        {
+          "pattern": "users/{ID}",
+          "name": "userDetail",
+          "target": "userDetail"
         }
       ],
       "targets": {
@@ -64,6 +74,16 @@
           "viewType": "XML",
           "viewId": "main",
           "viewName": "Main"
+        },
+        "organizationDetail": {
+          "viewType": "XML",
+          "viewId": "organizationDetail",
+          "viewName": "OrganizationDetail"
+        },
+        "userDetail": {
+          "viewType": "XML",
+          "viewId": "userDetail",
+          "viewName": "UserDetail"
         }
       }
     }

@@ -11,6 +11,7 @@ export default class Component extends UIComponent {
 
   public init(): void {
     super.init();
-    Core.applyTheme('sap_horizon_dark');
+
+    this.getRouter().initialize();
   }
 }

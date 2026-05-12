@@ -34,13 +34,13 @@ export default class Main extends Controller {
     const oContext = oItem.getBindingContext();
 
     if (!oContext) {
-      MessageBox.error('Could not read selected organization');
+      MessageBox.error('Could not read selected organization.');
       return;
     }
 
     const sID = oContext.getProperty('ID') as string;
 
-    this.getRouter().navTo('organizationDetail', {
+    this.getRouter().navTo('editOrganization', {
       ID: sID,
     });
   }

@@ -1,0 +1,54 @@
+<mvc:View
+    controllerName="jetbench.admin.controller.EditOrganization"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form">
+
+    <Page 
+        title="Edit Organization"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+        class="sapUiResponsiveContentPadding">
+
+        <content>
+            <f:SimpleForm 
+                editable="true" 
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1">
+
+                <Label text="Name" required="true"/>
+                <Input value="{name}" editable="true"/>
+
+                <Label text="Code" required="true"/>
+                <Input value="{code}" required="true"/>
+
+                <Label text="Country" required="true"/>
+                <Input value="{country}" required="true" placeholder="e.g. DE, GB"/>
+
+            </f:SimpleForm>
+            <Toolbar class="sapUiMediumMarginTop">
+
+                <Button 
+                    text="Delete"
+                    type="Reject"
+                    icon="sap-icon://delete"
+                    press=".onDeleteOrganization"/>
+
+                <ToolbarSpacer/>
+                <Button text="Save" type="Emphasized" press=".onSave"/>
+                <Button text="Cancel" press=".onCancel"/>
+            </Toolbar>
+        </content>
+
+    </Page>
+</mvc:View>

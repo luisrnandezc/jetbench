@@ -60,13 +60,13 @@
         },
         {
           "pattern": "organizations/{ID}",
-          "name": "organizationDetail",
-          "target": "organizationDetail"
+          "name": "editOrganization",
+          "target": "editOrganization"
         },
         {
           "pattern": "users/{ID}",
-          "name": "userDetail",
-          "target": "userDetail"
+          "name": "editUser",
+          "target": "editUser"
         }
       ],
       "targets": {
@@ -75,15 +75,15 @@
           "viewId": "main",
           "viewName": "Main"
         },
-        "organizationDetail": {
+        "editOrganization": {
           "viewType": "XML",
-          "viewId": "organizationDetail",
-          "viewName": "OrganizationDetail"
+          "viewId": "editOrganization",
+          "viewName": "EditOrganization"
         },
-        "userDetail": {
+        "editUser": {
           "viewType": "XML",
-          "viewId": "userDetail",
-          "viewName": "UserDetail"
+          "viewId": "editUser",
+          "viewName": "EditUser"
         }
       }
     }

@@ -12,12 +12,12 @@ import type Context from 'sap/ui/model/odata/v4/Context';
 /**
  * @namespace jetbench.admin.controller
  */
-export default class EditOrganization extends Controller {
+export default class EditUser extends Controller {
   private static readonly UPDATE_GROUP_ID = 'editGroup';
 
   public onInit(): void {
     this.getRouter()
-      .getRoute('editOrganization')
+      .getRoute('editUser')
       ?.attachPatternMatched(this.onRouteMatched, this);
   }
 
@@ -38,29 +38,29 @@ export default class EditOrganization extends Controller {
       };
     };
 
-    const sOrganizationID = oParameters.arguments?.ID;
+    const sUserID = oParameters.arguments?.ID;
 
-    if (!sOrganizationID) {
-      MessageBox.error('Missing Organization ID in route.');
+    if (!sUserID) {
+      MessageBox.error('Missing User ID in route.');
       this.getRouter().navTo('main');
       return;
     }
 
-    const sPath = `/Organizations(${sOrganizationID})`;
+    const sPath = `/Users(${sUserID})`;
 
     this.getView()!.setBusy(true);
 
     this.getView()?.bindElement({
       path: sPath,
       parameters: {
-        $$updateGroupId: EditOrganization.UPDATE_GROUP_ID,
+        $$updateGroupId: EditUser.UPDATE_GROUP_ID,
       },
       events: {
         change: () => {
           const oContext = this.getView()?.getBindingContext();
 
           if (!oContext) {
-            MessageBox.error(`Organization not found for path: ${sPath}.`);
+            MessageBox.error(`User not found for path: ${sPath}.`);
             this.getRouter().navTo('main');
             return;
           }
@@ -81,7 +81,7 @@ export default class EditOrganization extends Controller {
 
           if (oError) {
             MessageBox.error(
-              `Failed to load organization data for path: ${sPath}. Check Network tab / CAP logs.`,
+              `Failed to load user data for path: ${sPath}. Check Network tab / CAP logs.`,
             );
           }
         },
@@ -94,15 +94,15 @@ export default class EditOrganization extends Controller {
   }
 
   public onCancel(): void {
-    this.getODataModel().resetChanges(EditOrganization.UPDATE_GROUP_ID);
+    this.getODataModel().resetChanges(EditUser.UPDATE_GROUP_ID);
     this.onNavBack();
   }
 
   public async onSave(): Promise<void> {
     this.getView()?.setBusy(true);
     try {
-      await this.getODataModel().submitBatch(EditOrganization.UPDATE_GROUP_ID);
-      MessageToast.show('Organization updated');
+      await this.getODataModel().submitBatch(EditUser.UPDATE_GROUP_ID);
+      MessageToast.show('User updated');
       this.onNavBack();
     } catch (e) {
       MessageBox.error('Update failed. Check the Network tab / CAP logs');
@@ -111,25 +111,28 @@ export default class EditOrganization extends Controller {
     }
   }
 
-  public onDeleteOrganization(): void {
+  public onDeleteUser(): void {
     const context = this.getView()?.getBindingContext() as Context | null;
 
     if (!context) {
-      MessageBox.error('No organization loaded to delete');
+      MessageBox.error('No user loaded to delete');
       return;
     }
 
-    const organizationName = (context.getProperty('name') as string) ?? '';
-    const organizationCode = (context.getProperty('code') as string) ?? '';
-
-    const label = organizationName
-      ? `${organizationName} (${organizationCode})`
-      : organizationCode;
+    const firstName = (context.getProperty('firstName') as string) ?? '';
+    const lastName = (context.getProperty('lastName') as string) ?? '';
+    const email = (context.getProperty('email') as string) ?? '';
+    const userId = (context.getProperty('ID') as string) ?? '';
+    const nameParts = `${firstName} ${lastName}`.trim();
+    const label =
+      nameParts || email
+        ? `${nameParts || email} (${userId})`
+        : userId;
 
     MessageBox.confirm(
-      `This will permanently delete organization ${label}. Do you want to continue?`,
+      `This will permanently delete user ${label}. Do you want to continue?`,
       {
-        title: 'Delete Organization',
+        title: 'Delete User',
         emphasizedAction: MessageBox.Action.DELETE,
         actions: [MessageBox.Action.DELETE, MessageBox.Action.CANCEL],
         onClose: (action: string | null): void => {
@@ -146,8 +149,7 @@ export default class EditOrganization extends Controller {
     try {
       // Send DELETE immediately; editGroup batches updates (SAVE uses submitBatch) but never flushes deletes.
       await context.delete('$direct');
-
-      MessageToast.show('Organization deleted');
+      MessageToast.show('User deleted');
       this.onNavBack();
     } catch (e) {
       MessageBox.error('Delete failed. Check Network tab / CAP logs.');

@@ -17,6 +17,18 @@ import Table from 'sap/m/Table';
  * @namespace jetbench.admin.controller
  */
 export default class Main extends Controller {
+
+  public onInit(): void {
+    this.getRouter()
+      .getRoute('main')
+      ?.attachPatternMatched(this.onMainRouteMatched, this);
+  }
+
+  private onMainRouteMatched(): void {
+    this.refreshOrganizationsTable();
+    this.refreshUsersTable();
+  }
+
   private getODataModel(): ODataModel {
     return this.getView()!.getModel() as ODataModel;
   }
@@ -60,7 +72,7 @@ export default class Main extends Controller {
 
     const sID = oContext.getProperty('ID') as string;
 
-    this.getRouter().navTo('userDetail', {
+    this.getRouter().navTo('editUser', {
       ID: sID,
     });
   }
@@ -120,8 +132,8 @@ export default class Main extends Controller {
 
   private refreshOrganizationsTable(): void {
     const oTable = this.byId('organizationsTable') as Table;
-    const oBinding = oTable.getBinding('items') as ODataListBinding;
-    oBinding.refresh();
+    const oBinding = oTable.getBinding('items') as ODataListBinding | undefined;
+    oBinding?.refresh();
   }
 
   //------------------------------
@@ -197,7 +209,7 @@ export default class Main extends Controller {
 
   private refreshUsersTable(): void {
     const oTable = this.byId('usersTable') as Table;
-    const oBinding = oTable.getBinding('items') as ODataListBinding;
-    oBinding.refresh();
+    const oBinding = oTable.getBinding('items') as ODataListBinding | undefined;
+    oBinding?.refresh();
   }
 }

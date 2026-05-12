@@ -1,0 +1,77 @@
+<mvc:View
+    controllerName="jetbench.admin.controller.EditUser"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+
+    <Page 
+        title="Edit User"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+        class="sapUiResponsiveContentPadding">
+
+        <content>
+            <f:SimpleForm 
+                editable="true" 
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1">
+
+                <Label text="First Name" required="true"/>
+                <Input value="{firstName}" editable="true"/>
+
+                <Label text="Last Name" required="true"/>
+                <Input value="{lastName}" editable="true"/>
+
+                <Label text="Email" required="true"/>
+                <Input value="{email}" type="Email" editable="true"/>
+
+                <Label text="Role" required="true"/>
+                <Select selectedKey="{role}" width="100%">
+                    <core:Item key="Staff" text="Staff" />
+                    <core:Item key="Engineer" text="Engineer" />
+                    <core:Item key="Technician" text="Technician" />
+                    <core:Item key="Inspector" text="Inspector" />
+                    <core:Item key="Pilot" text="Pilot" />
+                    <core:Item key="Operator" text="Operator" />
+                    <core:Item key="Other" text="Other" />
+                </Select>
+
+                <Label text="Organization" required="true"/>
+                <Select
+                    selectedKey="{organization_ID}"
+                    width="100%"
+                    items="{/Organizations}">
+                    <core:Item key="{ID}" text="{name}" />
+                </Select>
+
+                <Label text="Active"/>
+                <CheckBox selected="{isActive}" text="User is active"/>
+
+            </f:SimpleForm>
+            <Toolbar class="sapUiMediumMarginTop">
+
+                <Button 
+                    text="Delete"
+                    type="Reject"
+                    icon="sap-icon://delete"
+                    press=".onDeleteUser"/>
+
+                <ToolbarSpacer/>
+                <Button text="Save" type="Emphasized" press=".onSave"/>
+                <Button text="Cancel" press=".onCancel"/>
+            </Toolbar>
+        </content>
+
+    </Page>
+</mvc:View>

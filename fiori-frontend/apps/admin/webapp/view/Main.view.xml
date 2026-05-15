@@ -157,13 +157,9 @@
 
             <Label text="Role" labelFor="userRoleSelect" />
             <Select id="userRoleSelect" width="100%" required="true">
-                <core:Item key="Staff" text="Staff" />
-                <core:Item key="Engineer" text="Engineer" />
-                <core:Item key="Technician" text="Technician" />
-                <core:Item key="Inspector" text="Inspector" />
-                <core:Item key="Pilot" text="Pilot" />
-                <core:Item key="Operator" text="Operator" />
-                <core:Item key="Other" text="Other" />
+                <core:Item key="PLATFORM_ADMIN" text="Platform Admin" />
+                <core:Item key="ORG_ADMIN" text="Organization Admin" />
+                <core:Item key="ORG_USER" text="Organization User" />
             </Select>
 
             <Label text="Organization" labelFor="userOrganizationSelect" />

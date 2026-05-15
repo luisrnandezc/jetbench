@@ -17,7 +17,6 @@ import Table from 'sap/m/Table';
  * @namespace jetbench.admin.controller
  */
 export default class Main extends Controller {
-
   public onInit(): void {
     this.getRouter()
       .getRoute('main')
@@ -201,7 +200,7 @@ export default class Main extends Controller {
     (this.byId('userEmailInput') as Input).setValue('');
 
     const oRoleSelect = this.byId('userRoleSelect') as Select;
-    oRoleSelect.setSelectedKey('Staff');
+    oRoleSelect.setSelectedKey('ORG_USER');
 
     const oOrganizationSelect = this.byId('userOrganizationSelect') as Select;
     oOrganizationSelect.setSelectedKey('');

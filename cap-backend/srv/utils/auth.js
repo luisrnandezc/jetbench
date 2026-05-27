@@ -27,3 +27,11 @@ export async function getCurrentUser(req) {
 
   return user;
 }
+
+export function restrictToOrganization(req, organizationId) {
+  if (!organizationId) {
+    req.reject(400, 'Organization ID is required');
+  }
+
+  req.query.where('organization_ID =', organizationId);
+}

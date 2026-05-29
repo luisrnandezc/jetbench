@@ -16,7 +16,7 @@
             text="New Organization" 
             icon="sap-icon://add" 
             type="Emphasized"
-            press=".onOpenCreateOrganizationDialog" />
+            press=".onCreateOrganization" />
         </Toolbar>
 
         <Table
@@ -60,7 +60,7 @@
             text="New User" 
             icon="sap-icon://add" 
             type="Emphasized"
-            press=".onOpenCreateUserDialog" />
+            press=".onCreateUser" />
         </Toolbar>
 
         <Table
@@ -106,86 +106,6 @@
         </Table>
 
       </VBox>
-
-      <!-- Create Organization Dialog -->
-      <Dialog 
-        id="createOrganizationDialog" 
-        title="Register Organization" 
-        class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
-        
-        <content>
-          <VBox class="sapUiSmallMargin" width="20rem">
-            <Label text="Name" labelFor="orgNameInput" />
-            <Input id="orgNameInput" required="true" />
-
-            <Label text="Code" labelFor="orgCodeInput" />
-            <Input id="orgCodeInput" required="true" />
-
-            <Label text="Country" labelFor="orgCountryInput" />
-            <Input id="orgCountryInput" required="true" />
-          </VBox>
-        </content>
-
-        <beginButton>
-          <Button text="Cancel" press=".onCloseCreateOrganizationDialog" />
-        </beginButton>
-
-        <endButton>
-          <Button 
-            text="Create" 
-            type="Emphasized" 
-            press=".onCreateOrganization" />
-        </endButton>
-      </Dialog>
-
-      <!-- Create User Dialog -->
-      <Dialog 
-        id="createUserDialog" 
-        title="Register User" 
-        class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
-        
-        <content>
-          <VBox class="sapUiSmallMargin" width="20rem">
-            <Label text="First Name" labelFor="userFirstNameInput" />
-            <Input id="userFirstNameInput" required="true" />
-
-            <Label text="Last Name" labelFor="userLastNameInput" />
-            <Input id="userLastNameInput" required="true" />
-
-            <Label text="Email" labelFor="userEmailInput" />
-            <Input id="userEmailInput" type="Email" required="true" />
-
-            <Label text="Role" labelFor="userRoleSelect" />
-            <Select id="userRoleSelect" width="100%" required="true">
-                <core:Item key="PLATFORM_ADMIN" text="Platform Admin" />
-                <core:Item key="ORG_ADMIN" text="Organization Admin" />
-                <core:Item key="ORG_USER" text="Organization User" />
-            </Select>
-
-            <Label text="Organization" labelFor="userOrganizationSelect" />
-            <Select 
-              id="userOrganizationSelect" 
-              width="100%"
-              items="{/Organizations}"
-              required="true">
-              <core:Item 
-                key="{ID}" 
-                text="{name}" />
-            </Select>
-          </VBox>
-        </content>
-
-        <beginButton>
-          <Button text="Cancel" press=".onCloseCreateUserDialog" />
-        </beginButton>
-
-        <endButton>
-          <Button 
-            text="Create" 
-            type="Emphasized" 
-            press=".onCreateUser" />
-        </endButton>
-      </Dialog>
 
     </content>
   </Page>

@@ -150,48 +150,7 @@ export default class Main extends Controller {
   }
 
   public onCreateUser(): void {
-    const sFirstName = (this.byId('userFirstNameInput') as Input)
-      .getValue()
-      .trim();
-    const sLastName = (this.byId('userLastNameInput') as Input)
-      .getValue()
-      .trim();
-    const sEmail = (this.byId('userEmailInput') as Input).getValue().trim();
-
-    const sRole = (this.byId('userRoleSelect') as Select).getSelectedKey();
-
-    const oOrganizationSelect = this.byId('userOrganizationSelect') as Select;
-    const sOrganizationID = oOrganizationSelect.getSelectedKey();
-
-    if (!sFirstName || !sLastName || !sEmail || !sRole || !sOrganizationID) {
-      MessageToast.show('Please fill in all required fields.');
-      return;
-    }
-
-    const oModel = this.getODataModel();
-    const oListBinding = oModel.bindList('/Users') as ODataListBinding;
-
-    const oCreatedContext = oListBinding.create({
-      firstName: sFirstName,
-      lastName: sLastName,
-      email: sEmail,
-      role: sRole,
-      organization_ID: sOrganizationID,
-      isActive: true,
-    });
-
-    oModel
-      .submitBatch(oModel.getUpdateGroupId())
-      .then(() => oCreatedContext.created())
-      .then(() => {
-        this.refreshUsersTable();
-        this.clearUserDialog();
-        this.onCloseCreateUserDialog();
-        MessageToast.show('User created successfully.');
-      })
-      .catch(() => {
-        MessageBox.error('Failed to create user. Please try again.');
-      });
+    this.getRouter().navTo('createUser');
   }
 
   private clearUserDialog(): void {

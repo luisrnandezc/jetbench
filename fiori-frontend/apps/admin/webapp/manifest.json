@@ -64,6 +64,11 @@
           "target": "editOrganization"
         },
         {
+          "pattern": "users/create",
+          "name": "createUser",
+          "target": "createUser"
+        },
+        {
           "pattern": "users/{ID}",
           "name": "editUser",
           "target": "editUser"
@@ -84,6 +89,11 @@
           "viewType": "XML",
           "viewId": "editUser",
           "viewName": "EditUser"
+        },
+        "createUser": {
+          "viewType": "XML",
+          "viewId": "createUser",
+          "viewName": "CreateUser"
         }
       }
     }

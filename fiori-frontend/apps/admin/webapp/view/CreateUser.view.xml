@@ -1,0 +1,70 @@
+<mvc:View
+    controllerName="jetbench.admin.controller.CreateUser"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+
+    <Page 
+        title="Create User"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+        class="sapUiResponsiveContentPadding">
+
+        <content>
+            <f:SimpleForm 
+                editable="true"
+                layout="ResponsiveGridLayout">
+
+                <Label text="First Name" required="true"/>
+                <Input value="{create>/firstName}" required="true"/>
+
+                <Label text="Last Name" required="true"/>
+                <Input value="{create>/lastName}" required="true"/>
+
+                <Label text="Email" required="true"/>
+                <Input value="{create>/email}" required="true" type="Email"/>
+
+                <Label text="Role" required="true"/>
+                <Select
+                    selectedKey="{create>/role}"
+                    width="100%">
+
+                    <core:Item
+                        key="PLATFORM_ADMIN"
+                        text="Platform Admin" />
+
+                    <core:Item
+                        key="ORG_ADMIN"
+                        text="Organization Admin" />
+
+                    <core:Item
+                        key="ORG_USER"
+                        text="Organization User" />
+                </Select>
+
+                <Label text="Organization" required="true"/>
+                <Select
+                    selectedKey="{create>/organization_ID}"
+                    width="100%"
+                    items="{/Organizations}">
+
+                    <core:Item 
+                        key="{ID}"
+                        text="{Name}"
+                        ></core:Item>
+                </Select>
+            
+            </f:SimpleForm>
+
+            <Toolbar class="sapUiMediumMarginTop">
+                <ToolbarSpacer/>
+                <Button text="Save" type="Emphasized" press=".onSave"/>
+                <Button text="Cancel" press=".onNavBack"/>
+            </Toolbar>
+        </content>
+        
+    </Page>
+
+
+</mvc:View>

@@ -4,6 +4,8 @@ service AdminService {
 
   entity Users as projection on db.AppUser;
   entity Organizations as projection on db.Organization;
+  entity Aircraft as projection on db.Aircraft;
+  entity Engines as projection on db.Engine;
 
   function me() returns Users;
 

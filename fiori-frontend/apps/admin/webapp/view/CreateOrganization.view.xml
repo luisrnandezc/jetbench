@@ -1,0 +1,75 @@
+<mvc:View
+    controllerName="jetbench.admin.controller.CreateOrganization"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+
+    <Page
+        title="Create Organization"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+        class="sapUiResponsiveContentPadding">
+
+        <content>
+            <f:SimpleForm
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1">
+
+                <Label text="Name" required="true"/>
+                <Input value="{create>/name}" required="true"/>
+
+                <Label text="Code" required="true"/>
+                <Input value="{create>/code}" required="true"/>
+
+                <Label text="Legal Name"/>
+                <Input value="{create>/legalName}"/>
+
+                <Label text="Type" required="true"/>
+                <Select
+                    selectedKey="{create>/type}"
+                    width="100%"
+                    items="{/OrganizationTypes}">
+                    <core:Item key="{code}" text="{name}" />
+                </Select>
+
+                <Label text="Country"/>
+                <Input value="{create>/country}" maxLength="2" placeholder="e.g. US, CA"/>
+
+                <Label text="City"/>
+                <Input value="{create>/city}"/>
+
+                <Label text="Timezone"/>
+                <Input value="{create>/timezone}"/>
+
+                <Label text="Primary Contact Name" required="true"/>
+                <Input value="{create>/primaryContactName}" required="true"/>
+
+                <Label text="Primary Contact Email" required="true"/>
+                <Input value="{create>/primaryContactEmail}" type="Email" required="true"/>
+
+                <Label text="Primary Contact Phone"/>
+                <Input value="{create>/primaryContactPhone}" type="Tel"/>
+
+            </f:SimpleForm>
+
+            <Toolbar class="sapUiMediumMarginTop">
+                <ToolbarSpacer/>
+                <Button text="Save" type="Emphasized" press=".onSave"/>
+                <Button text="Cancel" press=".onNavBack"/>
+            </Toolbar>
+        </content>
+
+    </Page>
+</mvc:View>

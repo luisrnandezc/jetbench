@@ -28,19 +28,9 @@
                 <Label text="Role" required="true"/>
                 <Select
                     selectedKey="{create>/role}"
-                    width="100%">
-
-                    <core:Item
-                        key="PLATFORM_ADMIN"
-                        text="Platform Admin" />
-
-                    <core:Item
-                        key="ORG_ADMIN"
-                        text="Organization Admin" />
-
-                    <core:Item
-                        key="ORG_USER"
-                        text="Organization User" />
+                    width="100%"
+                    items="{/UserRoles}">
+                    <core:Item key="{code}" text="{name}" />
                 </Select>
 
                 <Label text="Organization" required="true"/>
@@ -51,7 +41,7 @@
 
                     <core:Item 
                         key="{ID}"
-                        text="{Name}"
+                        text="{name}"
                         ></core:Item>
                 </Select>
             

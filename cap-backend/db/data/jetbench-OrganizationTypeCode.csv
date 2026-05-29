@@ -1,0 +1,6 @@
+code,name,descr
+OWNER_OPERATOR,Owner Operator,Aircraft owner or small operator managing its own aircraft.
+CHARTER_OPERATOR,Charter Operator,Commercial operator providing charter services.
+MANAGEMENT_COMPANY,Management Company,Company managing aircraft for owners.
+MAINTENANCE_SHOP,Maintenance Shop,Maintenance provider supporting customer aircraft.
+OTHER,Other,Organization type not covered by the standard categories.

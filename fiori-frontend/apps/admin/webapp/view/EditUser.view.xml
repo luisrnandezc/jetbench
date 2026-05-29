@@ -37,10 +37,11 @@
                 <Input value="{email}" type="Email" editable="true"/>
 
                 <Label text="Role" required="true"/>
-                <Select selectedKey="{role}" width="100%">
-                    <core:Item key="PLATFORM_ADMIN" text="Platform Admin" />
-                    <core:Item key="ORG_ADMIN" text="Organization Admin" />
-                    <core:Item key="ORG_USER" text="Organization User" />
+                <Select
+                    selectedKey="{role}"
+                    width="100%"
+                    items="{/UserRoles}">
+                    <core:Item key="{code}" text="{name}" />
                 </Select>
 
                 <Label text="Organization" required="true"/>

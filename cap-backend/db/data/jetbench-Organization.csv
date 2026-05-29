@@ -1,3 +1,3 @@
-ID,name,code,country
-00000000-0000-0000-0000-000000000001,JetBench Airlines,JBA,USA
-00000000-0000-0000-0000-000000000002,SkyHigh Corp,SHC,Canada
+ID,name,code,legalName,type,country,city,timezone,primaryContactName,primaryContactEmail,primaryContactPhone,status
+00000000-0000-0000-0000-000000000001,JetBench Airlines,JBA,JetBench Airlines LLC,CHARTER_OPERATOR,US,Miami,America/New_York,John Doe,johndoe@example.com,+1 305 555 0101,ACTIVE
+00000000-0000-0000-0000-000000000002,SkyHigh Corp,SHC,SkyHigh Corp,OWNER_OPERATOR,CA,Toronto,America/Toronto,Carol Sturka,carolsturka@example.com,+1 416 555 0102,ACTIVE

@@ -2,7 +2,8 @@
     controllerName="jetbench.admin.controller.EditOrganization"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:f="sap.ui.layout.form">
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
 
     <Page 
         title="Edit Organization"
@@ -32,8 +33,34 @@
                 <Label text="Code" required="true"/>
                 <Input value="{code}" required="true"/>
 
-                <Label text="Country" required="true"/>
-                <Input value="{country}" required="true" placeholder="e.g. DE, GB"/>
+                <Label text="Legal Name"/>
+                <Input value="{legalName}"/>
+
+                <Label text="Type" required="true"/>
+                <Select
+                    selectedKey="{type}"
+                    width="100%"
+                    items="{/OrganizationTypes}">
+                    <core:Item key="{code}" text="{name}" />
+                </Select>
+
+                <Label text="Country"/>
+                <Input value="{country}" maxLength="2" placeholder="e.g. US, CA"/>
+
+                <Label text="City"/>
+                <Input value="{city}"/>
+
+                <Label text="Timezone"/>
+                <Input value="{timezone}"/>
+
+                <Label text="Primary Contact Name" required="true"/>
+                <Input value="{primaryContactName}" required="true"/>
+
+                <Label text="Primary Contact Email" required="true"/>
+                <Input value="{primaryContactEmail}" type="Email" required="true"/>
+
+                <Label text="Primary Contact Phone"/>
+                <Input value="{primaryContactPhone}" type="Tel"/>
 
             </f:SimpleForm>
             <Toolbar class="sapUiMediumMarginTop">

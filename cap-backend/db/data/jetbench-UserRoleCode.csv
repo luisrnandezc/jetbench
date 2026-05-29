@@ -1,0 +1,4 @@
+code,name,descr
+PLATFORM_ADMIN,Platform Admin,Can administer all platform data.
+ORG_ADMIN,Organization Admin,Can administer one organization.
+ORG_USER,Organization User,Can use organization-level features.

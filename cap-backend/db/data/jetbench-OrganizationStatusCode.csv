@@ -1,0 +1,4 @@
+code,name,descr
+ACTIVE,Active,Organization can use the application.
+SUSPENDED,Suspended,Organization access is temporarily disabled.
+ARCHIVED,Archived,Organization is retained for history only.

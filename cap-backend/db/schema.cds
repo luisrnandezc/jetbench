@@ -1,6 +1,6 @@
 namespace jetbench;
 
-using { cuid, managed } from '@sap/cds/common';
+using { cuid, managed, sap.common.CodeList } from '@sap/cds/common';
 
 type UserRole : String enum {
       PLATFORM_ADMIN;
@@ -12,6 +12,14 @@ type OrganizationStatus : String enum {
       ACTIVE;
       SUSPENDED;
       ARCHIVED;
+}
+
+type OrganizationType : String enum {
+      OWNER_OPERATOR;
+      CHARTER_OPERATOR;
+      MANAGEMENT_COMPANY;
+      MAINTENANCE_SHOP;
+      OTHER;
 }
 
 type AircraftStatus : String enum {
@@ -28,16 +36,35 @@ type EngineStatus : String enum {
       RETIRED;
 }
 
+entity UserRoleCode : CodeList {
+      key code : UserRole;
+}
+
+entity OrganizationTypeCode : CodeList {
+      key code : OrganizationType;
+}
+
+entity OrganizationStatusCode : CodeList {
+      key code : OrganizationStatus;
+}
+
 @assert.unique: { code: [code] }
 entity Organization : cuid, managed {
-      name    : String(100) not null;
-      code    : String(20) not null;
-      country : String(50);
-      status  : OrganizationStatus default 'ACTIVE';
+      name                : String(100) not null;
+      code                : String(20) not null;
+      legalName           : String(160);
+      type                : OrganizationType default 'OWNER_OPERATOR';
+      country             : String(2);
+      city                : String(80);
+      timezone            : String(60);
+      primaryContactName  : String(120) not null;
+      primaryContactEmail : String(120) not null;
+      primaryContactPhone : String(40);
+      status              : OrganizationStatus default 'ACTIVE';
 
-      users    : Association to many AppUser on users.organization = $self;
-      aircraft : Association to many Aircraft on aircraft.organization = $self;
-      engines  : Association to many Engine on engines.organization = $self;
+      users               : Association to many AppUser on users.organization = $self;
+      aircraft            : Association to many Aircraft on aircraft.organization = $self;
+      engines             : Association to many Engine on engines.organization = $self;
 }
 
 @assert.unique: { email: [email] }

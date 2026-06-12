@@ -4,10 +4,14 @@ service AdminService {
 
   entity Users as projection on db.AppUser;
   entity Organizations as projection on db.Organization;
+
+  entity AircraftModels as projection on db.AircraftModel;
+  entity EngineModels as projection on db.EngineModel;
+
   entity UserRoles as projection on db.UserRoleCode;
   entity OrganizationTypes as projection on db.OrganizationTypeCode;
   entity OrganizationStatuses as projection on db.OrganizationStatusCode;
-  entity AircraftModels as projection on db.AircraftModel;
+
   entity Aircraft as projection on db.Aircraft {
     ID,
     tailNumber,
@@ -18,7 +22,18 @@ service AdminService {
     organization,
     aircraftModel : redirected to AircraftModels
   };
-  entity Engines as projection on db.Engine;
+
+  entity Engines as projection on db.Engine {
+    ID,
+    engineSerialNumber,
+    positionCode,
+    totalFlightHours,
+    totalCycles,
+    status,
+    organization,
+    aircraft,
+    engineModel : redirected to EngineModels
+  };
 
   function me() returns Users;
 

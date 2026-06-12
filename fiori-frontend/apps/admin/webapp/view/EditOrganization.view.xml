@@ -126,6 +126,61 @@
                     </ColumnListItem>
                 </items>
             </Table>
+
+            <Title text="Assigned Engines" level="H2" class="sapUiMediumMarginTop"/>
+            <Table
+                id="organizationEnginesTable"
+                growing="true"
+                growingThreshold="10"
+                items="{
+                    path: 'engines',
+                    parameters: {
+                    $expand: 'engineModel,aircraft'
+                    }
+                }">
+
+                <columns>
+                    <Column hAlign="Center">
+                        <Text text="Serial number" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Model" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Aircraft" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Position" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Hours" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Cycles" />
+                    </Column>
+                    <Column hAlign="Center">
+                        <Text text="Status" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem
+                    type="Navigation"
+                    press=".onOrganizationPress">
+
+                    <cells>
+                        <Text text="{engineSerialNumber}" />
+                        <Text text="{engineModel/name}" />
+                        <Text text="{aircraft/tailNumber}" />
+                        <Text text="{positionCode}" />
+                        <Text text="{totalFlightHours}" />
+                        <Text text="{totalCycles}" />
+                        <Text text="{status}" />
+                    </cells>
+
+                    </ColumnListItem>
+                </items>
+            </Table>
         </content>
 
     </Page>

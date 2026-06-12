@@ -7,7 +7,17 @@ service AdminService {
   entity UserRoles as projection on db.UserRoleCode;
   entity OrganizationTypes as projection on db.OrganizationTypeCode;
   entity OrganizationStatuses as projection on db.OrganizationStatusCode;
-  entity Aircraft as projection on db.Aircraft;
+  entity AircraftModels as projection on db.AircraftModel;
+  entity Aircraft as projection on db.Aircraft {
+    ID,
+    tailNumber,
+    serialNumber,
+    totalFlightHours,
+    totalCycles,
+    status,
+    organization,
+    aircraftModel : redirected to AircraftModels
+  };
   entity Engines as projection on db.Engine;
 
   function me() returns Users;

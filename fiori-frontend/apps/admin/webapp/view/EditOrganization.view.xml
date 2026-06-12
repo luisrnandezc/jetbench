@@ -75,6 +75,57 @@
                 <Button text="Save" type="Emphasized" press=".onSave"/>
                 <Button text="Cancel" press=".onCancel"/>
             </Toolbar>
+
+            <Title text="Assigned Aircraft" level="H2" class="sapUiMediumMarginTop"/>
+            <Table
+                id="organizationAircraftTable"
+                growing="true"
+                growingThreshold="10"
+                items="{
+                    path: 'aircraft',
+                    parameters: {
+                    $expand: 'aircraftModel'
+                    }
+                }">
+
+                <columns>
+                    <Column width="12rem" hAlign="Center">
+                        <Text text="Tail number" />
+                    </Column>
+                    <Column width="12rem" hAlign="Center">
+                        <Text text="Serial number" />
+                    </Column>
+                    <Column width="12rem" hAlign="Center">
+                        <Text text="Model" />
+                    </Column>
+                    <Column width="12rem" hAlign="Center">
+                        <Text text="Flight hours" />
+                    </Column>
+                    <Column width="12rem" hAlign="Center">
+                        <Text text="Cycles" />
+                    </Column>
+                    <Column width="12rem" hAlign="Center">
+                        <Text text="Status" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem
+                    type="Navigation"
+                    press=".onOrganizationPress">
+
+                    <cells>
+                        <Text text="{tailNumber}" />
+                        <Text text="{serialNumber}" />
+                        <Text text="{aircraftModel/name}" />
+                        <Text text="{totalFlightHours}" />
+                        <Text text="{totalCycles}" />
+                        <Text text="{status}" />
+                    </cells>
+
+                    </ColumnListItem>
+                </items>
+            </Table>
         </content>
 
     </Page>

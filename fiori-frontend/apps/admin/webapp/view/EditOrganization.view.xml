@@ -112,7 +112,7 @@
                 <items>
                     <ColumnListItem
                     type="Navigation"
-                    press=".onOrganizationPress">
+                    press=".onAircraftPress">
 
                     <cells>
                         <Text text="{tailNumber}" />

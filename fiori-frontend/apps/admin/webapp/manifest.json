@@ -77,6 +77,11 @@
           "pattern": "users/{ID}",
           "name": "editUser",
           "target": "editUser"
+        },
+        {
+          "pattern": "aircraft/{ID}",
+          "name": "editAircraft",
+          "target": "editAircraft"
         }
       ],
       "targets": {
@@ -104,6 +109,11 @@
           "viewType": "XML",
           "viewId": "createUser",
           "viewName": "CreateUser"
+        },
+        "editAircraft": {
+          "viewType": "XML",
+          "viewId": "editAircraft",
+          "viewName": "EditAircraft"
         }
       }
     }

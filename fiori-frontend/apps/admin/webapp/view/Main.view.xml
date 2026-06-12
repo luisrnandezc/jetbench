@@ -33,7 +33,13 @@
               <Text text="Code" />
             </Column>
             <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Type" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
               <Text text="Country" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+              <Text text="Status" />
             </Column>
           </columns>
 
@@ -45,7 +51,9 @@
               <cells>
                 <Text text="{name}" />
                 <Text text="{code}" />
+                <Text text="{type}" />
                 <Text text="{country}" />
+                <Text text="{status}" />
               </cells>
 
             </ColumnListItem>

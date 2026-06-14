@@ -3,62 +3,111 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:f="sap.ui.layout.form"
-    xmlns:core="sap.ui.core">
+    xmlns:core="sap.ui.core"
+    xmlns:uxap="sap.uxap">
 
-    <Page 
-        title="Edit Aircraft"
+    <Page
+        title="{tailNumber}"
         showNavButton="true"
-        navButtonPress=".onNavBack"
-        class="sapUiResponsiveContentPadding">
+        navButtonPress=".onNavBack">
 
         <content>
-            <f:SimpleForm 
-                editable="true" 
-                layout="ResponsiveGridLayout"
-                labelSpanXL="3"
-                labelSpanL="3"
-                labelSpanM="3"
-                labelSpanS="12"
-                adjustLabelSpan="false"
-                emptySpanXL="4"
-                emptySpanL="4"
-                emptySpanM="4"
-                columnsXL="1"
-                columnsL="1"
-                columnsM="1">
+            <uxap:ObjectPageLayout
+                showTitleInHeaderContent="true"
+                alwaysShowContentHeader="false"
+                preserveHeaderStateOnScroll="false"
+                useIconTabBar="true">
 
-                <Label text="Tail number" required="true"/>
-                <Input value="{tailNumber}" editable="true"/>
+                <uxap:headerTitle>
+                    <uxap:ObjectPageDynamicHeaderTitle>
+                        <uxap:expandedHeading>
+                            <Title text="{tailNumber}" />
+                        </uxap:expandedHeading>
 
-                <Label text="Serial number" required="true"/>
-                <Input value="{serialNumber}" required="true"/>
+                        <uxap:snappedHeading>
+                            <Title text="{tailNumber}" />
+                        </uxap:snappedHeading>
 
-                <Label text="Model" required="true"/>
-                <Input value="{aircraftModel/name}" required="true" />
+                        <uxap:expandedContent>
+                            <ObjectStatus text="{status}" />
+                        </uxap:expandedContent>
 
-                <Label text="Total flight hours"/>
-                <Input value="{totalFlightHours}" />
+                        <uxap:snappedContent>
+                            <ObjectStatus text="{status}" />
+                        </uxap:snappedContent>
+                    </uxap:ObjectPageDynamicHeaderTitle>
+                </uxap:headerTitle>
 
-                <Label text="Total cycles"/>
-                <Input value="{totalCycles}" />
+                <uxap:sections>
+                    <uxap:ObjectPageSection title="General">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <uxap:blocks>
+                                    <f:SimpleForm
+                                        editable="true"
+                                        layout="ResponsiveGridLayout">
 
-                <Label text="Status"/>
-                <Input value="{status}"/>
+                                        <Label text="Tail number" required="true"/>
+                                        <Input value="{tailNumber}" />
 
-            </f:SimpleForm>
-            <Toolbar class="sapUiMediumMarginTop">
+                                        <Label text="Serial number" required="true"/>
+                                        <Input value="{serialNumber}" />
 
+                                        <Label text="Model"/>
+                                        <Input value="{aircraftModel/name}" editable="false" />
+
+                                        <Label text="Status"/>
+                                        <Input value="{status}" />
+                                    </f:SimpleForm>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <uxap:ObjectPageSection title="Utilization">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <uxap:blocks>
+                                    <f:SimpleForm
+                                        editable="true"
+                                        layout="ResponsiveGridLayout">
+
+                                        <Label text="Total flight hours"/>
+                                        <Input value="{totalFlightHours}" editable="false" />
+
+                                        <Label text="Total cycles"/>
+                                        <Input value="{totalCycles}" editable="false" />
+                                    </f:SimpleForm>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <uxap:ObjectPageSection title="Engines">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <uxap:blocks>
+                                    <Text text="Engines table goes here next." />
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+                </uxap:sections>
+            </uxap:ObjectPageLayout>
+        </content>
+        <footer>
+            <Toolbar>
                 <Button 
                     text="Delete"
                     type="Reject"
                     icon="sap-icon://delete"
-                    press=".onDeleteAircraft"/>
+                    press=".onDeleteAircraft" />
+                
+                <ToolbarSpacer />
 
-                <ToolbarSpacer/>
-                <Button text="Save" type="Emphasized" press=".onSave"/>
-                <Button text="Cancel" press=".onCancel"/>
+                <Button text="Save" type="Emphasized" press=".onSave" />
+                <Button text="Cancel" press=".onCancel" />
             </Toolbar>
-        </content>
-
+        </footer>
     </Page>
 </mvc:View>

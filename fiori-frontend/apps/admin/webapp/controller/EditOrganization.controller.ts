@@ -8,6 +8,7 @@ import type Event from 'sap/ui/base/Event';
 import type Router from 'sap/ui/core/routing/Router';
 import type ODataModel from 'sap/ui/model/odata/v4/ODataModel';
 import type Context from 'sap/ui/model/odata/v4/Context';
+import ColumnListItem from 'sap/m/ColumnListItem';
 
 /**
  * @namespace jetbench.admin.controller
@@ -157,21 +158,32 @@ export default class EditOrganization extends Controller {
   }
 
   public onAircraftPress(oEvent: Event): void {
-    const oItem = oEvent.getSource() as sap.m.ColumnListItem;
-    const oContext = oItem.getBindingContext() as Context | null;
+    const oAircraftItem = oEvent.getSource() as ColumnListItem;
+    const oAircraftContext =
+      oAircraftItem.getBindingContext() as Context | null;
 
-    if (!oContext) {
+    if (!oAircraftContext) {
       MessageBox.error('Could not read selected aircraft.');
       return;
     }
 
-    const sID = oContext.getProperty('ID') as string | undefined;
+    const aircraftID = oAircraftContext.getProperty('ID') as string | undefined;
 
-    if (!sID) {
+    if (!aircraftID) {
       MessageBox.error('Selected aircraft has no ID.');
       return;
     }
 
-    this.getRouter().navTo('editAircraft', { ID: sID });
+    const organizationContext =
+      this.getView()?.getBindingContext() as Context | null;
+
+    const organizationID = organizationContext?.getProperty('ID') as
+      | string
+      | undefined;
+
+    this.getRouter().navTo('editAircraft', {
+      organizationID,
+      ID: aircraftID,
+    });
   }
 }

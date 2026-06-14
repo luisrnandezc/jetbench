@@ -14,6 +14,7 @@ import type Context from 'sap/ui/model/odata/v4/Context';
  */
 export default class EditAircraft extends Controller {
   private static readonly UPDATE_GROUP_ID = 'editGroup';
+  private organizationID = '';
 
   public onInit(): void {
     this.getRouter()
@@ -35,16 +36,26 @@ export default class EditAircraft extends Controller {
     const oParameters = oEvent.getParameters() as {
       arguments?: {
         ID?: string;
+        organizationID?: string;
       };
     };
 
     const sAircraftID = oParameters.arguments?.ID;
+    const sOrganizationID = oParameters.arguments?.organizationID;
 
     if (!sAircraftID) {
       MessageBox.error('Missing Aircraft ID in route.');
       this.getRouter().navTo('main');
       return;
     }
+
+    if (!sOrganizationID) {
+      MessageBox.error('Missing Organization ID in route.');
+      this.getRouter().navTo('main');
+      return;
+    }
+
+    this.organizationID = sOrganizationID;
 
     const sPath = `/Aircraft(${sAircraftID})`;
 
@@ -91,7 +102,9 @@ export default class EditAircraft extends Controller {
   }
 
   public onNavBack(): void {
-    this.getRouter().navTo('main', {}, true);
+    this.getRouter().navTo('editOrganization', {
+      ID: this.organizationID,
+    });
   }
 
   public onCancel(): void {
@@ -120,12 +133,10 @@ export default class EditAircraft extends Controller {
       return;
     }
 
-    const aircraftTailNumber = (context.getProperty('name') as string) ?? '';
-    const aircraftSerialNumber = (context.getProperty('code') as string) ?? '';
+    const TailNumber = (context.getProperty('tailNumber') as string) ?? '';
+    const SerialNumber = (context.getProperty('serialNumber') as string) ?? '';
 
-    const label = aircraftTailNumber
-      ? `${aircraftTailNumber} (${aircraftSerialNumber})`
-      : aircraftSerialNumber;
+    const label = TailNumber ? `${TailNumber} (${SerialNumber})` : SerialNumber;
 
     MessageBox.confirm(
       `This will permanently delete aircraft ${label}. Do you want to continue?`,

@@ -87,7 +87,51 @@
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection>
                                 <uxap:blocks>
-                                    <Text text="Engines table goes here next." />
+                                    <Table
+                                        id="aircraftEnginesTable"
+                                        growing="true"
+                                        growingThreshold="10"
+                                        items="{
+                                            path: 'engines',
+                                            parameters: {
+                                                expand: 'engineModel'
+                                            }
+                                        }">
+                                        <columns>
+                                            <Column>
+                                                <Text text="Model" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="S/N" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Position" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Hours" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Cycles" />
+                                            </Column>
+                                            <Column>
+                                                <Text text="Status" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem
+                                                type="Navigation"
+                                                press=".onEnginePress">
+                                                <cells>
+                                                    <Text text="{engineModel/name}" />
+                                                    <Text text="{engineSerialNumber}" />
+                                                    <Text text="{positionCode}" />
+                                                    <Text text="{totalFlightHours}" />
+                                                    <Text text="{totalCycles}" />
+                                                    <Text text="{status}" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
                                 </uxap:blocks>
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>

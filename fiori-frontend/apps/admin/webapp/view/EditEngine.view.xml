@@ -1,0 +1,111 @@
+<mvc:View
+    controllerName="jetbench.admin.controller.EditEngine"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:uxap="sap.uxap">
+
+    <Page
+        title="{engineSerialNumber}"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+        class="sapUiResponsiveContentPadding">
+
+        <content>
+            <uxap:ObjectPageLayout
+                showTitleInHeaderContent="true"
+                useIconTabBar="true">
+
+                <uxap:headerTitle>
+                    <uxap:ObjectPageDynamicHeaderTitle>
+                        <uxap:expandedHeading>
+                            <Title text="{engineSerialNumber}" />
+                        </uxap:expandedHeading>
+
+                        <uxap:snappedHeading>
+                            <Title text="{engineSerialNumber}" />
+                        </uxap:snappedHeading>
+
+                        <uxap:expandedContent>
+                            <ObjectStatus text="{status}" />
+                        </uxap:expandedContent>
+
+                        <uxap:snappedContent>
+                            <ObjectStatus text="{status}" />
+                        </uxap:snappedContent>
+                    </uxap:ObjectPageDynamicHeaderTitle>
+                </uxap:headerTitle>
+
+                <uxap:sections>
+                    <uxap:ObjectPageSection title="General">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <uxap:blocks>
+                                    <f:SimpleForm
+                                        editable="true"
+                                        layout="ResponsiveGridLayout">
+
+                                        <Label text="Serial Number" required="true"/>
+                                        <Input value="{engineSerialNumber}" />
+
+                                        <Label text="Model"/>
+                                        <Input value="{engineModel/name}" editable="false" />
+
+                                        <Label text="Installed Aircraft"/>
+                                        <Input value="{aircraft/tailNumber}" editable="false" />
+
+                                        <Label text="Position"/>
+                                        <Input value="{positionCode}" />
+
+                                        <Label text="Status"/>
+                                        <Input value="{status}" />
+                                    </f:SimpleForm>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <uxap:ObjectPageSection title="Utilization">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <uxap:blocks>
+                                    <f:SimpleForm
+                                        editable="true"
+                                        layout="ResponsiveGridLayout">
+
+                                        <Label text="Total Flight Hours"/>
+                                        <Input value="{totalFlightHours}" editable="false" />
+
+                                        <Label text="Total Cycles"/>
+                                        <Input value="{totalCycles}" editable="false" />
+                                    </f:SimpleForm>
+                                </uxap:blocks>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+                </uxap:sections>
+            </uxap:ObjectPageLayout>
+        </content>
+
+        <footer>
+            <Toolbar>
+                <Button
+                    text="Delete"
+                    type="Reject"
+                    icon="sap-icon://delete"
+                    press=".onDeleteEngine" />
+
+                <ToolbarSpacer />
+
+                <Button
+                    text="Save"
+                    type="Emphasized"
+                    press=".onSave" />
+
+                <Button
+                    text="Cancel"
+                    press=".onCancel" />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

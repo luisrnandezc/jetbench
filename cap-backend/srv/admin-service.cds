@@ -20,7 +20,8 @@ service AdminService {
     totalCycles,
     status,
     organization,
-    aircraftModel : redirected to AircraftModels
+    aircraftModel : redirected to AircraftModels,
+    engines
   };
 
   entity Engines as projection on db.Engine {

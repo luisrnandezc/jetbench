@@ -8,19 +8,20 @@ import type Event from 'sap/ui/base/Event';
 import type Router from 'sap/ui/core/routing/Router';
 import type ODataModel from 'sap/ui/model/odata/v4/ODataModel';
 import type Context from 'sap/ui/model/odata/v4/Context';
-import type ColumnListItem from 'sap/m/ColumnListItem';
 
 /**
  * @namespace jetbench.admin.controller
  */
-export default class EditAircraft extends Controller {
+export default class EditEngine extends Controller {
   private static readonly UPDATE_GROUP_ID = 'editGroup';
+
   private organizationID = '';
   private aircraftID = '';
+  private engineID = '';
 
   public onInit(): void {
     this.getRouter()
-      .getRoute('editAircraft')
+      .getRoute('editEngine')
       ?.attachPatternMatched(this.onRouteMatched, this);
   }
 
@@ -37,19 +38,15 @@ export default class EditAircraft extends Controller {
   private onRouteMatched(oEvent: Event): void {
     const oParameters = oEvent.getParameters() as {
       arguments?: {
-        ID?: string;
         organizationID?: string;
+        aircraftID?: string;
+        ID?: string;
       };
     };
 
-    const sAircraftID = oParameters.arguments?.ID;
     const sOrganizationID = oParameters.arguments?.organizationID;
-
-    if (!sAircraftID) {
-      MessageBox.error('Missing Aircraft ID in route.');
-      this.getRouter().navTo('main');
-      return;
-    }
+    const sAircraftID = oParameters.arguments?.aircraftID;
+    const sEngineID = oParameters.arguments?.ID;
 
     if (!sOrganizationID) {
       MessageBox.error('Missing Organization ID in route.');
@@ -57,25 +54,47 @@ export default class EditAircraft extends Controller {
       return;
     }
 
+    if (!sAircraftID) {
+      MessageBox.error('Missing Aircraft ID in route.');
+      this.getRouter().navTo('editOrganization', {
+        ID: sOrganizationID,
+      });
+      return;
+    }
+
+    if (!sEngineID) {
+      MessageBox.error('Missing Engine ID in route.');
+      this.getRouter().navTo('editAircraft', {
+        organizationID: sOrganizationID,
+        ID: sAircraftID,
+      });
+      return;
+    }
+
     this.organizationID = sOrganizationID;
     this.aircraftID = sAircraftID;
-    const sPath = `/Aircraft(${sAircraftID})`;
+    this.engineID = sEngineID;
+
+    const sPath = `/Engines(${sEngineID})`;
 
     this.getView()!.setBusy(true);
 
     this.getView()?.bindElement({
       path: sPath,
       parameters: {
-        $expand: 'aircraftModel,organization',
-        $$updateGroupId: EditAircraft.UPDATE_GROUP_ID,
+        $expand: 'engineModel,aircraft,organization',
+        $$updateGroupId: EditEngine.UPDATE_GROUP_ID,
       },
       events: {
         change: () => {
           const oContext = this.getView()?.getBindingContext();
 
           if (!oContext) {
-            MessageBox.error(`Aircraft not found for path: ${sPath}.`);
-            this.getRouter().navTo('main');
+            MessageBox.error(`Engine not found for path: ${sPath}.`);
+            this.getRouter().navTo('editAircraft', {
+              organizationID: sOrganizationID,
+              ID: sAircraftID,
+            });
             return;
           }
 
@@ -95,7 +114,7 @@ export default class EditAircraft extends Controller {
 
           if (oError) {
             MessageBox.error(
-              `Failed to load aircraft data for path: ${sPath}. Check Network tab / CAP logs.`,
+              `Failed to load engine data for path: ${sPath}. Check Network tab / CAP logs.`,
             );
           }
         },
@@ -104,21 +123,22 @@ export default class EditAircraft extends Controller {
   }
 
   public onNavBack(): void {
-    this.getRouter().navTo('editOrganization', {
-      ID: this.organizationID,
+    this.getRouter().navTo('editAircraft', {
+      organizationID: this.organizationID,
+      ID: this.aircraftID,
     });
   }
 
   public onCancel(): void {
-    this.getODataModel().resetChanges(EditAircraft.UPDATE_GROUP_ID);
+    this.getODataModel().resetChanges(EditEngine.UPDATE_GROUP_ID);
     this.onNavBack();
   }
 
   public async onSave(): Promise<void> {
     this.getView()?.setBusy(true);
     try {
-      await this.getODataModel().submitBatch(EditAircraft.UPDATE_GROUP_ID);
-      MessageToast.show('Aircraft updated');
+      await this.getODataModel().submitBatch(EditEngine.UPDATE_GROUP_ID);
+      MessageToast.show('Engine updated');
       this.onNavBack();
     } catch (e) {
       MessageBox.error('Update failed. Check the Network tab / CAP logs');
@@ -127,23 +147,23 @@ export default class EditAircraft extends Controller {
     }
   }
 
-  public onDeleteAircraft(): void {
+  public onDeleteEngine(): void {
     const context = this.getView()?.getBindingContext() as Context | null;
 
     if (!context) {
-      MessageBox.error('No aircraft loaded to delete');
+      MessageBox.error('No engine loaded to delete');
       return;
     }
 
-    const TailNumber = (context.getProperty('tailNumber') as string) ?? '';
-    const SerialNumber = (context.getProperty('serialNumber') as string) ?? '';
+    const engineSerialNumber =
+      (context.getProperty('engineSerialNumber') as string) ?? '';
 
-    const label = TailNumber ? `${TailNumber} (${SerialNumber})` : SerialNumber;
+    const label = engineSerialNumber || this.aircraftID || 'unknown engine';
 
     MessageBox.confirm(
-      `This will permanently delete aircraft ${label}. Do you want to continue?`,
+      `This will permanently delete engine ${label}. Do you want to continue?`,
       {
-        title: 'Delete Aircraft',
+        title: 'Delete Engine',
         emphasizedAction: MessageBox.Action.DELETE,
         actions: [MessageBox.Action.DELETE, MessageBox.Action.CANCEL],
         onClose: (action: string | null): void => {
@@ -161,31 +181,12 @@ export default class EditAircraft extends Controller {
       // Send DELETE immediately; editGroup batches updates (SAVE uses submitBatch) but never flushes deletes.
       await context.delete('$direct');
 
-      MessageToast.show('Aircraft deleted');
+      MessageToast.show('Engine deleted');
       this.onNavBack();
     } catch (e) {
       MessageBox.error('Delete failed. Check Network tab / CAP logs.');
     } finally {
       this.getView()?.setBusy(false);
     }
-  }
-
-  public onEnginePress(oEvent: Event): void {
-    const oItem = oEvent.getSource() as ColumnListItem;
-
-    const oEngineContext = oItem.getBindingContext();
-
-    if (!oEngineContext) {
-      MessageBox.error('Could not read the selected engine');
-      return;
-    }
-
-    const engineID = oEngineContext.getProperty('ID') as string;
-
-    this.getRouter().navTo('editEngine', {
-      organizationID: this.organizationID,
-      aircraftID: this.aircraftID,
-      ID: engineID,
-    });
   }
 }

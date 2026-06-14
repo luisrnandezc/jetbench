@@ -83,6 +83,11 @@
           "pattern": "organizations/{organizationID}/aircraft/{ID}",
           "name": "editAircraft",
           "target": "editAircraft"
+        },
+        {
+          "pattern": "organizations/{organizationID}/aircraft/{aircraftID}/engines/{ID}",
+          "name": "editEngine",
+          "target": "editEngine"
         }
       ],
       "targets": {
@@ -115,6 +120,11 @@
           "viewType": "XML",
           "viewId": "editAircraft",
           "viewName": "EditAircraft"
+        },
+        "editEngine": {
+          "viewType": "XML",
+          "viewId": "editEngine",
+          "viewName": "EditEngine"
         }
       }
     }

@@ -39,10 +39,7 @@
         "settings": {
           "synchronizationMode": "None",
           "operationMode": "Server",
-          "autoExpandSelect": true,
-          "httpHeaders": {
-            "x-mock-user-email": "carolsturka@example.com"
-          }
+          "autoExpandSelect": true
         }
       }
     },

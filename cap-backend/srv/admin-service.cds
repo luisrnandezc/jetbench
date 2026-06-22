@@ -1,5 +1,6 @@
 using { jetbench as db } from '../db/schema';
 
+@(requires: 'PLATFORM_ADMIN')
 service AdminService {
 
   entity Users as projection on db.AppUser;

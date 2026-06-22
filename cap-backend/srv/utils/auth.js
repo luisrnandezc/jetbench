@@ -1,10 +1,10 @@
 import cds from '@sap/cds';
 
 export async function getCurrentUser(req) {
-  const mockEmail = req.headers['x-mock-user-email'];
+  const authId = req.user.id;
 
-  if (!mockEmail) {
-    req.reject(400, 'Missing x-mock-user-email header');
+  if (!authId) {
+    req.reject(401, 'Authentication is required');
   }
 
   const db = await cds.connect.to('db');
@@ -18,20 +18,15 @@ export async function getCurrentUser(req) {
         'organization.name as orgName',
         'organization.code as orgCode',
       )
-      .where({ email: mockEmail }),
+      .where({
+        authId,
+        isActive: true,
+      }),
   );
 
   if (!user) {
-    req.reject(404, `No user found for email ${mockEmail}`);
+    req.reject(403, 'The authenticated user is not active in JetBench');
   }
 
   return user;
-}
-
-export function restrictToOrganization(req, organizationId) {
-  if (!organizationId) {
-    req.reject(400, 'Organization ID is required');
-  }
-
-  req.query.where('organization_ID =', organizationId);
 }

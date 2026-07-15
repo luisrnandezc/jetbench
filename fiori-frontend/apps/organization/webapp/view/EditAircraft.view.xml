@@ -1,0 +1,167 @@
+<mvc:View
+  controllerName="jetbench.organization.controller.EditAircraft"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core"
+  xmlns:uxap="sap.uxap">
+
+  <Page
+    title="{tailNumber}"
+    showNavButton="true"
+    navButtonPress=".onNavBack">
+
+    <content>
+      <uxap:ObjectPageLayout
+        showTitleInHeaderContent="true"
+        useIconTabBar="true">
+
+        <uxap:headerTitle>
+          <uxap:ObjectPageDynamicHeaderTitle>
+            <uxap:expandedHeading>
+              <Title text="{tailNumber}" />
+            </uxap:expandedHeading>
+
+            <uxap:snappedHeading>
+              <Title text="{tailNumber}" />
+            </uxap:snappedHeading>
+
+            <uxap:expandedContent>
+              <ObjectStatus text="{status}" />
+            </uxap:expandedContent>
+
+            <uxap:snappedContent>
+              <ObjectStatus text="{status}" />
+            </uxap:snappedContent>
+          </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:sections>
+          <uxap:ObjectPageSection title="General">
+            <uxap:subSections>
+              <uxap:ObjectPageSubSection>
+                <uxap:blocks>
+                  <f:SimpleForm
+                    editable="true"
+                    layout="ResponsiveGridLayout">
+
+                    <Label text="Tail number" required="true" />
+                    <Input value="{tailNumber}" />
+
+                    <Label text="Serial number" required="true" />
+                    <Input value="{serialNumber}" />
+
+                    <Label text="Aircraft model" required="true" />
+                    <Select
+                      selectedKey="{aircraftModel_ID}"
+                      items="{/AircraftModels}">
+                      <core:Item key="{ID}" text="{name}" />
+                    </Select>
+
+                    <Label text="Default engine model" />
+                    <Select
+                      selectedKey="{defaultEngineModel_ID}"
+                      items="{/EngineModels}">
+                      <core:Item key="{ID}" text="{name}" />
+                    </Select>
+
+                    <Label text="Status" />
+                    <Select selectedKey="{status}">
+                      <core:Item key="ACTIVE" text="Active" />
+                      <core:Item key="INACTIVE" text="Inactive" />
+                      <core:Item key="MAINTENANCE" text="Maintenance" />
+                      <core:Item key="RETIRED" text="Retired" />
+                    </Select>
+
+                  </f:SimpleForm>
+                </uxap:blocks>
+              </uxap:ObjectPageSubSection>
+            </uxap:subSections>
+          </uxap:ObjectPageSection>
+
+          <uxap:ObjectPageSection title="Utilization">
+            <uxap:subSections>
+              <uxap:ObjectPageSubSection>
+                <uxap:blocks>
+                  <f:SimpleForm
+                    editable="true"
+                    layout="ResponsiveGridLayout">
+
+                    <Label text="Total flight hours" />
+                    <Input value="{totalFlightHours}" editable="false" />
+
+                    <Label text="Total cycles" />
+                    <Input value="{totalCycles}" editable="false" />
+
+                  </f:SimpleForm>
+                </uxap:blocks>
+              </uxap:ObjectPageSubSection>
+            </uxap:subSections>
+          </uxap:ObjectPageSection>
+
+          <uxap:ObjectPageSection title="Engines">
+            <uxap:subSections>
+              <uxap:ObjectPageSubSection>
+                <uxap:blocks>
+                  <Table
+                    id="aircraftEnginesTable"
+                    growing="true"
+                    growingThreshold="10"
+                    items="{
+                      path: 'engines',
+                      parameters: {
+                        $expand: 'engineModel'
+                      }
+                    }">
+
+                    <columns>
+                      <Column>
+                        <Text text="Serial Number" />
+                      </Column>
+                      <Column>
+                        <Text text="Model" />
+                      </Column>
+                      <Column>
+                        <Text text="Position" />
+                      </Column>
+                      <Column>
+                        <Text text="Status" />
+                      </Column>
+                    </columns>
+
+                    <items>
+                      <ColumnListItem>
+                        <cells>
+                          <Text text="{engineSerialNumber}" />
+                          <Text text="{engineModel/name}" />
+                          <Text text="{positionCode}" />
+                          <Text text="{status}" />
+                        </cells>
+                      </ColumnListItem>
+                    </items>
+
+                  </Table>
+                </uxap:blocks>
+              </uxap:ObjectPageSubSection>
+            </uxap:subSections>
+          </uxap:ObjectPageSection>
+        </uxap:sections>
+      </uxap:ObjectPageLayout>
+    </content>
+
+    <footer>
+      <Toolbar>
+        <Button
+          text="Delete"
+          type="Reject"
+          icon="sap-icon://delete"
+          press=".onDeleteAircraft" />
+
+        <ToolbarSpacer />
+
+        <Button text="Save" type="Emphasized" press=".onSave" />
+        <Button text="Cancel" press=".onCancel" />
+      </Toolbar>
+    </footer>
+  </Page>
+</mvc:View>

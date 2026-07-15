@@ -1,0 +1,58 @@
+<mvc:View
+  controllerName="jetbench.organization.controller.CreateAircraft"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core">
+
+  <Page
+    title="Create Aircraft"
+    showNavButton="true"
+    navButtonPress=".onNavBack"
+    class="sapUiResponsiveContentPadding">
+
+    <content>
+      <f:SimpleForm
+        editable="true"
+        layout="ResponsiveGridLayout">
+
+        <Label text="Tail number" required="true" />
+        <Input value="{form>/tailNumber}" required="true" />
+
+        <Label text="Serial number" required="true" />
+        <Input value="{form>/serialNumber}" required="true" />
+
+        <Label text="Aircraft model" required="true" />
+        <Select
+          selectedKey="{form>/aircraftModel_ID}"
+          items="{/AircraftModels}">
+          <core:Item key="{ID}" text="{name}" />
+        </Select>
+
+        <Label text="Default engine model" />
+        <Select
+          selectedKey="{form>/defaultEngineModel_ID}"
+          items="{/EngineModels}">
+          <core:Item key="{ID}" text="{name}" />
+        </Select>
+
+        <Label text="Status" />
+        <Select selectedKey="{form>/status}">
+          <core:Item key="ACTIVE" text="Active" />
+          <core:Item key="INACTIVE" text="Inactive" />
+          <core:Item key="MAINTENANCE" text="Maintenance" />
+          <core:Item key="RETIRED" text="Retired" />
+        </Select>
+
+      </f:SimpleForm>
+    </content>
+
+    <footer>
+      <Toolbar>
+        <ToolbarSpacer />
+        <Button text="Create" type="Emphasized" press=".onCreate" />
+        <Button text="Cancel" press=".onCancel" />
+      </Toolbar>
+    </footer>
+  </Page>
+</mvc:View>

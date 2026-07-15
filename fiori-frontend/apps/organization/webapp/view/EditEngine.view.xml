@@ -1,0 +1,71 @@
+<mvc:View
+  controllerName="jetbench.organization.controller.EditEngine"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core">
+
+  <Page
+    title="{engineSerialNumber}"
+    showNavButton="true"
+    navButtonPress=".onNavBack"
+    class="sapUiResponsiveContentPadding">
+
+    <content>
+      <f:SimpleForm
+        editable="true"
+        layout="ResponsiveGridLayout">
+
+        <Label text="Serial number" required="true" />
+        <Input value="{engineSerialNumber}" required="true" />
+
+        <Label text="Engine model" required="true" />
+        <Select
+          selectedKey="{engineModel_ID}"
+          items="{/EngineModels}">
+          <core:Item key="{ID}" text="{name}" />
+        </Select>
+
+        <Label text="Assigned aircraft" />
+        <Select
+          selectedKey="{aircraft_ID}"
+          items="{/Aircraft}">
+          <core:Item key="{ID}" text="{tailNumber}" />
+        </Select>
+
+        <Label text="Position code" />
+        <Input value="{positionCode}" placeholder="e.g. L, R, 1, 2" />
+
+        <Label text="Status" />
+        <Select selectedKey="{status}">
+          <core:Item key="INSTALLED" text="Installed" />
+          <core:Item key="UNINSTALLED" text="Uninstalled" />
+          <core:Item key="MAINTENANCE" text="Maintenance" />
+          <core:Item key="RETIRED" text="Retired" />
+        </Select>
+
+        <Label text="Total flight hours" />
+        <Input value="{totalFlightHours}" editable="false" />
+
+        <Label text="Total cycles" />
+        <Input value="{totalCycles}" editable="false" />
+
+      </f:SimpleForm>
+    </content>
+
+    <footer>
+      <Toolbar>
+        <Button
+          text="Delete"
+          type="Reject"
+          icon="sap-icon://delete"
+          press=".onDeleteEngine" />
+
+        <ToolbarSpacer />
+
+        <Button text="Save" type="Emphasized" press=".onSave" />
+        <Button text="Cancel" press=".onCancel" />
+      </Toolbar>
+    </footer>
+  </Page>
+</mvc:View>

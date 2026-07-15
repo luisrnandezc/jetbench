@@ -11,21 +11,21 @@ import type ODataModel from 'sap/ui/model/odata/v4/ODataModel';
 import type ODataListBinding from 'sap/ui/model/odata/v4/ODataListBinding';
 import type Context from 'sap/ui/model/odata/v4/Context';
 
-type AircraftFormData = {
-  tailNumber: string;
-  serialNumber: string;
-  aircraftModel_ID: string;
-  defaultEngineModel_ID: string;
+type EngineFormData = {
+  engineSerialNumber: string;
+  engineModel_ID: string;
+  aircraft_ID: string;
+  positionCode: string;
   status: string;
 };
 
 /**
  * @namespace jetbench.organization.controller
  */
-export default class CreateAircraft extends Controller {
+export default class CreateEngine extends Controller {
   public onInit(): void {
     this.getRouter()
-      .getRoute('createAircraft')
+      .getRoute('createEngine')
       ?.attachPatternMatched(this.resetForm, this);
   }
 
@@ -38,15 +38,14 @@ export default class CreateAircraft extends Controller {
   }
 
   private async resetForm(): Promise<void> {
-    const sFirstAircraftModelID =
-      await this.getFirstEntityID('/AircraftModels');
+    const sFirstEngineModelID = await this.getFirstEntityID('/EngineModels');
 
     const oFormModel = new JSONModel({
-      tailNumber: '',
-      serialNumber: '',
-      aircraftModel_ID: sFirstAircraftModelID,
-      defaultEngineModel_ID: '',
-      status: 'ACTIVE',
+      engineSerialNumber: '',
+      engineModel_ID: sFirstEngineModelID,
+      aircraft_ID: '',
+      positionCode: '',
+      status: 'UNINSTALLED',
     });
 
     this.getView()?.setModel(oFormModel, 'form');
@@ -75,28 +74,26 @@ export default class CreateAircraft extends Controller {
 
   public async onCreate(): Promise<void> {
     const oFormModel = this.getView()?.getModel('form') as JSONModel;
-    const oData = oFormModel.getData() as AircraftFormData;
+    const oData = oFormModel.getData() as EngineFormData;
 
-    if (!oData.tailNumber || !oData.serialNumber || !oData.aircraftModel_ID) {
-      MessageBox.error(
-        'Tail number, serial number, and aircraft model are required.',
-      );
+    if (!oData.engineSerialNumber || !oData.engineModel_ID) {
+      MessageBox.error('Serial number and engine model are required.');
       return;
     }
 
     const oPayload = {
-      tailNumber: oData.tailNumber,
-      serialNumber: oData.serialNumber,
-      aircraftModel_ID: oData.aircraftModel_ID,
-      defaultEngineModel_ID: oData.defaultEngineModel_ID || null,
-      status: oData.status || 'ACTIVE',
+      engineSerialNumber: oData.engineSerialNumber,
+      engineModel_ID: oData.engineModel_ID,
+      aircraft_ID: oData.aircraft_ID || null,
+      positionCode: oData.positionCode || null,
+      status: oData.status || 'UNINSTALLED',
     };
 
     this.getView()?.setBusy(true);
 
     try {
       const oListBinding = this.getODataModel().bindList(
-        '/Aircraft',
+        '/Engines',
         undefined,
         undefined,
         undefined,
@@ -109,7 +106,7 @@ export default class CreateAircraft extends Controller {
 
       await oContext.created();
 
-      MessageToast.show('Aircraft created');
+      MessageToast.show('Engine created');
       this.onNavBack();
     } catch (e) {
       MessageBox.error('Create failed. Check Network tab / CAP logs.');

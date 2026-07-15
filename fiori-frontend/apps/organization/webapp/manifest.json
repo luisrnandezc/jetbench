@@ -69,6 +69,16 @@
           "pattern": "aircraft/{ID}",
           "name": "editAircraft",
           "target": "editAircraft"
+        },
+        {
+          "pattern": "engines/create",
+          "name": "createEngine",
+          "target": "createEngine"
+        },
+        {
+          "pattern": "engines/{ID}",
+          "name": "editEngine",
+          "target": "editEngine"
         }
       ],
       "targets": {
@@ -86,6 +96,16 @@
           "viewType": "XML",
           "viewId": "editAircraft",
           "viewName": "EditAircraft"
+        },
+        "createEngine": {
+          "viewType": "XML",
+          "viewId": "createEngine",
+          "viewName": "CreateEngine"
+        },
+        "editEngine": {
+          "viewType": "XML",
+          "viewId": "editEngine",
+          "viewName": "EditEngine"
         }
       }
     }

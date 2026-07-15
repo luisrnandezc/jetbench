@@ -46,7 +46,7 @@ export default class Main extends Controller {
   }
 
   public onCreateEngine(): void {
-    MessageToast.show('Create Engine screen will be added later.');
+    this.getRouter().navTo('createEngine');
   }
 
   public onUserPress(oEvent: Event): void {
@@ -88,6 +88,9 @@ export default class Main extends Controller {
     }
 
     const sID = oContext.getProperty('ID') as string;
-    MessageToast.show(`Selected engine: ${sID}`);
+
+    this.getRouter().navTo('editEngine', {
+      ID: sID,
+    });
   }
 }

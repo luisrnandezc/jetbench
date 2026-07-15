@@ -1,0 +1,186 @@
+<mvc:View
+  controllerName="jetbench.organization.controller.Main"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m">
+
+  <Page title="JetBench Organization">
+    <content>
+      <VBox class="sapUiMediumMargin" width="auto">
+
+        <Title text="My Organization" level="H2" />
+
+        <Table
+          id="organizationsTable"
+          growing="false"
+          items="{/Organizations}">
+          <columns>
+            <Column>
+              <Text text="Name" />
+            </Column>
+            <Column>
+              <Text text="Code" />
+            </Column>
+            <Column>
+              <Text text="Type" />
+            </Column>
+            <Column>
+              <Text text="Country" />
+            </Column>
+            <Column>
+              <Text text="Status" />
+            </Column>
+          </columns>
+
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{name}" />
+                <Text text="{code}" />
+                <Text text="{type}" />
+                <Text text="{country}" />
+                <Text text="{status}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+        <Toolbar class="sapUiMediumMarginTop">
+          <Title text="Users" level="H2" />
+          <ToolbarSpacer />
+          <Button
+            text="New User"
+            icon="sap-icon://add"
+            type="Emphasized"
+            press=".onCreateUser" />
+        </Toolbar>
+
+        <Table
+          id="usersTable"
+          growing="true"
+          growingThreshold="20"
+          items="{/Users}">
+          <columns>
+            <Column>
+              <Text text="Name" />
+            </Column>
+            <Column>
+              <Text text="Email" />
+            </Column>
+            <Column>
+              <Text text="Role" />
+            </Column>
+            <Column>
+              <Text text="Active" />
+            </Column>
+          </columns>
+
+          <items>
+            <ColumnListItem type="Navigation" press=".onUserPress">
+              <cells>
+                <Text text="{firstName} {lastName}" />
+                <Text text="{email}" />
+                <Text text="{role}" />
+                <Text text="{isActive}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+        <Toolbar class="sapUiMediumMarginTop">
+          <Title text="Aircraft" level="H2" />
+          <ToolbarSpacer />
+          <Button
+            text="New Aircraft"
+            icon="sap-icon://add"
+            type="Emphasized"
+            press=".onCreateAircraft" />
+        </Toolbar>
+
+        <Table
+          id="aircraftTable"
+          growing="true"
+          growingThreshold="20"
+          items="{
+            path: '/Aircraft',
+            parameters: {
+              $expand: 'aircraftModel'
+            }
+          }">
+          <columns>
+            <Column>
+              <Text text="Tail Number" />
+            </Column>
+            <Column>
+              <Text text="Serial Number" />
+            </Column>
+            <Column>
+              <Text text="Model" />
+            </Column>
+            <Column>
+              <Text text="Status" />
+            </Column>
+          </columns>
+
+          <items>
+            <ColumnListItem type="Navigation" press=".onAircraftPress">
+              <cells>
+                <Text text="{tailNumber}" />
+                <Text text="{serialNumber}" />
+                <Text text="{aircraftModel/name}" />
+                <Text text="{status}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+        <Toolbar class="sapUiMediumMarginTop">
+          <Title text="Engines" level="H2" />
+          <ToolbarSpacer />
+          <Button
+            text="New Engine"
+            icon="sap-icon://add"
+            type="Emphasized"
+            press=".onCreateEngine" />
+        </Toolbar>
+
+        <Table
+          id="enginesTable"
+          growing="true"
+          growingThreshold="20"
+          items="{
+            path: '/Engines',
+            parameters: {
+              $expand: 'engineModel,aircraft'
+            }
+          }">
+          <columns>
+            <Column>
+              <Text text="Serial Number" />
+            </Column>
+            <Column>
+              <Text text="Model" />
+            </Column>
+            <Column>
+              <Text text="Aircraft" />
+            </Column>
+            <Column>
+              <Text text="Status" />
+            </Column>
+          </columns>
+
+          <items>
+            <ColumnListItem type="Navigation" press=".onEnginePress">
+              <cells>
+                <Text text="{engineSerialNumber}" />
+                <Text text="{engineModel/name}" />
+                <Text text="{aircraft/tailNumber}" />
+                <Text text="{status}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+      </VBox>
+    </content>
+  </Page>
+</mvc:View>

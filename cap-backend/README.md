@@ -1,25 +1,42 @@
-# Getting Started
+# JetBench CAP Backend
 
-Welcome to your new project.
+This folder contains the SAP CAP backend for JetBench, a focused Engine Health Monitoring learning project.
 
-It contains these folders and files, following our recommended project layout:
+The backend models the supporting structure needed for engine monitoring:
 
-File or Folder | Purpose
----------|----------
-`app/` | content for UI frontends goes here
-`db/` | your domain models and data go here
-`srv/` | your service models and code go here
-`package.json` | project metadata and configuration
-`readme.md` | this getting started guide
+- organizations
+- users
+- aircraft
+- engines
+- aircraft models
+- engine models
 
+## Services
 
-## Next Steps
+- `AdminService`: platform-wide administration for platform admins.
+- `OrganizationService`: organization-scoped administration for organization admins.
+- `RegistryService`: organization-scoped read access for aircraft and engine registry data.
 
-- Open a new terminal and run `cds watch`
-- (in VS Code simply choose _**Terminal** > Run Task > cds watch_)
-- Start adding content, for example, a [db/schema.cds](db/schema.cds).
+## Local Development
 
+Start the backend with an in-memory database:
 
-## Learn More
+```powershell
+npx cds serve --in-memory
+```
 
-Learn more at https://cap.cloud.sap/docs/get-started/.
+Validate the CDS model:
+
+```powershell
+npx cds compile db srv
+```
+
+Run tests:
+
+```powershell
+npm test
+```
+
+## Scope
+
+This backend currently supports the foundation for Engine Health Monitoring. It is not scoped as a full aircraft maintenance or compliance management backend.

@@ -1,78 +1,80 @@
 # JetBench
 
-JetBench is a lightweight aircraft maintenance and fleet registry application built as a personal SAP CAP and Fiori practice project. The product concept is aimed at small jet and turboprop operators, individual aircraft owners, and maintenance shops that need practical maintenance visibility without the cost and complexity of large enterprise aviation maintenance platforms.
+JetBench is a focused Engine Health Monitoring application built as a personal SAP CAP and Fiori learning project.
 
-The first MVP focus is fleet and engine health management: organizations, users, aircraft, engines, models, operating status, and the basic administrative structure needed to support future maintenance tracking workflows.
+The current product scope is intentionally narrow: help aviation organizations track engines, their aircraft assignments, operating status, usage totals, and the supporting master data needed for engine-health workflows.
 
-## Why This Project Exists
-
-Small aviation operators often need only a focused subset of maintenance software functionality. Full-scale systems can be expensive, operationally heavy, and more complex than what a small shop or owner-operator needs day to day.
-
-JetBench explores a lighter alternative:
-
-- Keep the data model small enough to understand and maintain.
-- Focus on aircraft and engine records before expanding into full maintenance tracking.
-- Support multi-organization usage from the beginning.
-- Use SAP-style architecture and Fiori patterns to practice real enterprise application development.
-
-This project is also intended as a portfolio piece for SAP roles, especially around CAP, OData, Fiori/UI5, domain modeling, and business application design.
+Organization, user, aircraft, and engine management are included because they provide the operational structure around engine monitoring. They are supporting capabilities, not a signal that JetBench is intended to be a full aircraft maintenance platform.
 
 ## Current Scope
 
-Implemented or in progress:
+JetBench currently focuses on:
 
 - Organization management
 - User management
-- Aircraft and engine registry
+- Aircraft registry data
+- Engine registry data
 - Aircraft and engine model master data
-- OData V4 services for admin and registry use cases
-- Fiori/UI5 freestyle applications
-- CAP CDS domain model with associations, enums, code lists, and value-help style annotations
-- Seed data for local development
+- Organization-scoped access for customer users
+- Platform-wide access for platform administrators
+- Fiori/UI5 applications for platform and organization workflows
+- SAP CAP OData V4 services
+- Local seed data for development and testing
 
-Planned future scope:
+The product direction from here is Engine Health Monitoring:
 
-- Engine health monitoring entries and trend data
-- Maintenance events and compliance tracking
-- Airframe maintenance tracking
-- Document references for maintenance records
-- Role-based authorization improvements
-- Dashboard and reporting views
+- engine condition/status visibility
+- engine utilization tracking
+- engine trend data
+- engine-focused dashboards and reports
+- engine records scoped to the correct organization
+
+## What This Project Is Not
+
+JetBench is not currently scoped as a full aircraft maintenance, compliance, work-order, or flight-operations platform.
+
+Aircraft and organization records exist to support engine monitoring. The goal is to keep the application small enough to reason about while still practicing realistic enterprise patterns.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    AdminUI["JetBench Admin UI<br/>SAPUI5 freestyle app"]
-    RegistryUI["JetBench Registry UI<br/>SAPUI5 freestyle app"]
+    AdminUI["Platform Admin App<br/>SAPUI5 freestyle"]
+    OrgUI["Organization App<br/>SAPUI5 freestyle"]
+    RegistryUI["Registry App<br/>SAPUI5 freestyle"]
+
     AdminService["AdminService<br/>OData V4"]
+    OrgService["OrganizationService<br/>OData V4"]
     RegistryService["RegistryService<br/>OData V4"]
+
     CAP["SAP CAP Backend"]
     DB["SQLite development database"]
 
     AdminUI --> AdminService
+    OrgUI --> OrgService
     RegistryUI --> RegistryService
+
     AdminService --> CAP
+    OrgService --> CAP
     RegistryService --> CAP
+
     CAP --> DB
 ```
 
 ## Main Domain Model
 
-The core entities are intentionally simple and operational:
+The current domain model provides the foundation for engine monitoring:
 
-- `Organization`: tenant/operator record with type, country, status, and primary contact.
-- `AppUser`: user assigned to an organization with a platform or organization role.
+- `Organization`: customer/operator record used for organization-level data isolation.
+- `AppUser`: application user assigned to an organization and role.
 - `AircraftModel`: aircraft type/master data.
 - `EngineModel`: engine type/master data including TBO.
 - `Aircraft`: aircraft record linked to an organization and model.
 - `Engine`: engine record linked to an organization, model, and optionally an aircraft.
 
-Code-list entities provide backend-owned labels for select fields such as organization type, organization status, and user role.
-
 ## Applications
 
-### Admin App
+### Platform Admin App
 
 Located at:
 
@@ -82,10 +84,35 @@ fiori-frontend/apps/admin
 
 Purpose:
 
-- Manage organizations
-- Manage users
-- Manage aircraft and engine registry data
-- Demonstrate admin-oriented Fiori navigation and forms
+- Used by platform administrators.
+- Provides platform-wide visibility across organizations.
+- Manages organizations, users, aircraft, engines, and model data.
+
+Backend service:
+
+```text
+/odata/v4/admin/
+```
+
+### Organization App
+
+Located at:
+
+```text
+fiori-frontend/apps/organization
+```
+
+Purpose:
+
+- Used by organization administrators.
+- Manages only the current organization’s users, aircraft, and engines.
+- Provides the customer-side administration surface for engine monitoring data.
+
+Backend service:
+
+```text
+/odata/v4/organization/
+```
 
 ### Registry App
 
@@ -97,10 +124,16 @@ fiori-frontend/apps/registry
 
 Purpose:
 
-- Provide registry-focused views over aircraft and engine data
-- Separate operational registry workflows from platform administration
+- Provides read-oriented views over organization-scoped aircraft and engine data.
+- Supports basic operational visibility without exposing platform administration.
 
-### CAP Backend
+Backend service:
+
+```text
+/odata/v4/registry/
+```
+
+## CAP Backend
 
 Located at:
 
@@ -110,8 +143,9 @@ cap-backend
 
 Services:
 
-- `AdminService`: users, organizations, aircraft, engines, models, and value lists.
-- `RegistryService`: organization-restricted aircraft and engine registry projections.
+- `AdminService`: platform-wide administration service.
+- `OrganizationService`: organization-scoped administration service.
+- `RegistryService`: organization-scoped read service for aircraft and engine registry data.
 
 ## Technology Stack
 
@@ -125,45 +159,38 @@ Services:
 
 ## Local Development
 
-Install dependencies in each project folder:
+Install backend dependencies:
 
 ```powershell
 cd cap-backend
 npm install
+```
 
-cd ..\fiori-frontend\apps\admin
+Install frontend dependencies as needed:
+
+```powershell
+cd fiori-frontend\apps\admin
+npm install
+
+cd ..\organization
 npm install
 
 cd ..\registry
 npm install
 ```
 
-Deploy local seed data:
-
-```powershell
-cd cap-backend
-npx cds deploy --to sqlite
-```
-
 Start the CAP backend:
 
 ```powershell
 cd cap-backend
-npm start
+npx cds serve --in-memory
 ```
 
 Start a frontend app:
 
 ```powershell
-cd fiori-frontend\apps\admin
-npm start
-```
-
-or:
-
-```powershell
-cd fiori-frontend\apps\registry
-npm start
+cd fiori-frontend\apps\organization
+npm run start
 ```
 
 Build a frontend app:
@@ -179,28 +206,28 @@ cd cap-backend
 npx cds compile db srv
 ```
 
+Run backend tests:
+
+```powershell
+cd cap-backend
+npm test
+```
+
 ## SAP Learning Goals
 
-This project is designed to demonstrate and practice:
+This project is designed to practice:
 
 - CAP entity modeling and service projections
 - OData V4 service consumption from SAPUI5
 - Fiori-style list/detail navigation
 - UI5 routing, controllers, and XML views
-- Value lists and backend-owned select options
-- Multi-tenant-style data separation through organization ownership
-- Practical enterprise CRUD flows with validation and seed data
-
-## Product Direction
-
-JetBench is not intended to become a full enterprise maintenance system immediately. The product direction is deliberately lean:
-
-1. Build a reliable fleet and engine registry.
-2. Add engine health monitoring records and trend visibility.
-3. Add maintenance events and compliance status.
-4. Expand into airframe maintenance tracking.
-5. Keep the interface simple enough for small operators and shops.
+- Role-based service boundaries
+- Organization-scoped data access
+- Practical enterprise CRUD flows
+- Seed data and backend tests
 
 ## Status
 
-This is an active personal project and learning sandbox. It is not production-ready, but the current direction is meant to show how a real aviation maintenance product could be modeled and built with SAP technologies.
+This is an active personal learning project and is not production-ready.
+
+The current direction is to build a clean, focused Engine Health Monitoring application with SAP CAP and Fiori.

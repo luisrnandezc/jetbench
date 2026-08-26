@@ -1,39 +1,47 @@
 # JetBench
 
-JetBench is a focused Engine Health Monitoring application built as a personal SAP CAP and Fiori learning project.
+JetBench is an Engine Health Monitoring platform for small to medium aviation operators that need a practical way to track engine status, aircraft assignments, utilization, and supporting fleet data.
 
-The current product scope is intentionally narrow: help aviation organizations track engines, their aircraft assignments, operating status, usage totals, and the supporting master data needed for engine-health workflows.
+The application is built around the engine as the primary asset. Organizations can maintain their aircraft and engine records, assign engines to aircraft, monitor operating status, and keep the core data needed for future engine-health trends, dashboards, and reports.
 
-Organization, user, aircraft, and engine management are included because they provide the operational structure around engine monitoring. They are supporting capabilities, not a signal that JetBench is intended to be a full aircraft maintenance platform.
+## Product Focus
 
-## Current Scope
+JetBench is designed to help operators answer engine-health questions such as:
 
-JetBench currently focuses on:
+- Is this engine performing as expected for its current operating hours and cycles?
+- Are recorded parameters staying within expected limits?
+- Is the engine showing early signs of degradation or abnormal behavior?
+- Should this engine be inspected before its next planned maintenance interval?
+- How is engine condition changing over time?
+- Which engines need attention first?
 
-- Organization management
-- User management
-- Aircraft registry data
-- Engine registry data
+Aircraft assignments, organization records, users, and model data provide the operational context for those answers. The core purpose of JetBench is to turn engine records and operating data into useful engine-health visibility.
+
+## Current Capabilities
+
+- Platform-level organization and user administration
+- Organization-scoped user, aircraft, and engine management
+- Aircraft and engine registry views
 - Aircraft and engine model master data
-- Organization-scoped access for customer users
-- Platform-wide access for platform administrators
-- Fiori/UI5 applications for platform and organization workflows
-- SAP CAP OData V4 services
-- Local seed data for development and testing
+- Engine assignment to aircraft
+- Engine operating status tracking
+- Aircraft and engine utilization fields
+- Role-based service access
+- Organization-scoped data isolation
+- SAP CAP OData V4 backend services
+- SAPUI5/OpenUI5 freestyle frontend applications
+- Local seed data and backend tests
 
-The product direction from here is Engine Health Monitoring:
+## Planned Engine Health Monitoring Capabilities
 
-- engine condition/status visibility
-- engine utilization tracking
+The next product layer will focus on engine-health workflows, including:
+
+- engine condition entries
 - engine trend data
-- engine-focused dashboards and reports
-- engine records scoped to the correct organization
-
-## What This Project Is Not
-
-JetBench is not currently scoped as a full aircraft maintenance, compliance, work-order, or flight-operations platform.
-
-Aircraft and organization records exist to support engine monitoring. The goal is to keep the application small enough to reason about while still practicing realistic enterprise patterns.
+- engine utilization history
+- engine health dashboards
+- engine-focused reports
+- alerts for engines requiring attention
 
 ## Architecture
 
@@ -61,16 +69,16 @@ flowchart LR
     CAP --> DB
 ```
 
-## Main Domain Model
+## Domain Model
 
-The current domain model provides the foundation for engine monitoring:
+The current domain model establishes the operational structure for engine monitoring:
 
-- `Organization`: customer/operator record used for organization-level data isolation.
-- `AppUser`: application user assigned to an organization and role.
+- `Organization`: aviation operator or customer account used for data ownership and isolation.
+- `AppUser`: user assigned to an organization with a platform or organization role.
 - `AircraftModel`: aircraft type/master data.
-- `EngineModel`: engine type/master data including TBO.
-- `Aircraft`: aircraft record linked to an organization and model.
-- `Engine`: engine record linked to an organization, model, and optionally an aircraft.
+- `EngineModel`: engine type/master data, including TBO.
+- `Aircraft`: aircraft record owned by an organization.
+- `Engine`: engine record owned by an organization and optionally assigned to an aircraft.
 
 ## Applications
 
@@ -84,9 +92,8 @@ fiori-frontend/apps/admin
 
 Purpose:
 
-- Used by platform administrators.
-- Provides platform-wide visibility across organizations.
-- Manages organizations, users, aircraft, engines, and model data.
+- Manage platform-wide organizations, users, aircraft, engines, and model data.
+- Provide platform administrators with visibility across all organizations.
 
 Backend service:
 
@@ -104,9 +111,9 @@ fiori-frontend/apps/organization
 
 Purpose:
 
-- Used by organization administrators.
-- Manages only the current organization’s users, aircraft, and engines.
-- Provides the customer-side administration surface for engine monitoring data.
+- Allow organization administrators to manage their own users, aircraft, and engines.
+- Keep customer-side data scoped to the authenticated user’s organization.
+- Provide the main administration surface for engine monitoring data.
 
 Backend service:
 
@@ -124,8 +131,8 @@ fiori-frontend/apps/registry
 
 Purpose:
 
-- Provides read-oriented views over organization-scoped aircraft and engine data.
-- Supports basic operational visibility without exposing platform administration.
+- Provide read-oriented visibility into organization-scoped aircraft and engine data.
+- Support users who need fleet and engine visibility without platform administration access.
 
 Backend service:
 
@@ -213,21 +220,7 @@ cd cap-backend
 npm test
 ```
 
-## SAP Learning Goals
-
-This project is designed to practice:
-
-- CAP entity modeling and service projections
-- OData V4 service consumption from SAPUI5
-- Fiori-style list/detail navigation
-- UI5 routing, controllers, and XML views
-- Role-based service boundaries
-- Organization-scoped data access
-- Practical enterprise CRUD flows
-- Seed data and backend tests
-
 ## Status
 
-This is an active personal learning project and is not production-ready.
+JetBench is under active development. The current implementation provides the organizational, fleet, and engine data foundation for the Engine Health Monitoring workflows that will be added next.
 
-The current direction is to build a clean, focused Engine Health Monitoring application with SAP CAP and Fiori.

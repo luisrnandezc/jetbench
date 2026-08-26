@@ -1,8 +1,12 @@
 # JetBench CAP Backend
 
-This folder contains the SAP CAP backend for JetBench, a focused Engine Health Monitoring learning project.
+This folder contains the SAP CAP backend for JetBench, an Engine Health Monitoring platform for small to medium aviation operators.
 
-The backend models the supporting structure needed for engine monitoring:
+The backend provides the service and data foundation for tracking engine status, aircraft assignments, utilization, and organization-scoped fleet records.
+
+## Domain Foundation
+
+The current backend model includes:
 
 - organizations
 - users
@@ -10,6 +14,8 @@ The backend models the supporting structure needed for engine monitoring:
 - engines
 - aircraft models
 - engine models
+
+These entities provide the structure needed for engine-health workflows such as condition entries, trend data, dashboards, and reports.
 
 ## Services
 
@@ -36,7 +42,3 @@ Run tests:
 ```powershell
 npm test
 ```
-
-## Scope
-
-This backend currently supports the foundation for Engine Health Monitoring. It is not scoped as a full aircraft maintenance or compliance management backend.

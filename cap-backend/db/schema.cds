@@ -129,3 +129,16 @@ entity Engine : cuid, managed {
       organization       : Association to Organization not null;
 }
 
+entity FlightRecord : cuid, managed {
+      flightDate   : Date not null;
+
+      flightHours  : Decimal(10,2) not null @assert.range: [0.01, 24.00];
+      cycles       : Integer default 1 @assert.range: [1, 5];
+
+      notes        : String(500);
+
+      aircraft     : Association to Aircraft not null;
+      organization : Association to Organization not null;
+      recordedBy   : Association to AppUser;
+}
+

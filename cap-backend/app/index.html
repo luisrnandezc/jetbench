@@ -148,6 +148,42 @@
         margin-top: 1rem;
       }
 
+      .credentials {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      .credential {
+        padding: 1.2rem;
+        border: 1px solid #24445e;
+        border-radius: 1rem;
+        background: rgb(12 29 44 / 82%);
+      }
+
+      .credential h3 {
+        margin: 0 0 0.7rem;
+        font-size: 1rem;
+      }
+
+      .credential p {
+        margin: 0.25rem 0;
+        color: #aebfce;
+      }
+
+      code {
+        color: #d9f4ff;
+        font-family: "Cascadia Code", Consolas, monospace;
+        font-size: 0.9em;
+      }
+
+      .demo-note {
+        margin: 1rem 0 2rem;
+        color: #91a8ba;
+        line-height: 1.6;
+      }
+
       .detail {
         padding: 1.4rem;
         border: 1px solid #1c3a50;
@@ -180,6 +216,7 @@
         }
 
         .apps,
+        .credentials,
         .details {
           grid-template-columns: 1fr;
         }
@@ -247,6 +284,33 @@
         </div>
       </section>
 
+      <section aria-labelledby="access-heading">
+        <h2 class="section-heading" id="access-heading">Demo access</h2>
+        <div class="credentials">
+          <article class="credential">
+            <h3>Platform Admin</h3>
+            <p><code>platform@example.com</code></p>
+            <p>Password: <code>platform</code></p>
+          </article>
+          <article class="credential">
+            <h3>Organization Admin</h3>
+            <p><code>johndoe@example.com</code></p>
+            <p>Password: <code>admin</code></p>
+          </article>
+          <article class="credential">
+            <h3>Registry User</h3>
+            <p><code>carolsturka@example.com</code></p>
+            <p>Password: <code>user</code></p>
+          </article>
+        </div>
+        <p class="demo-note">
+          These accounts use HTTP Basic authentication and fictional data.
+          Browsers cache one identity per origin, so use a private window or a
+          separate browser profile when switching users. Administrative accounts
+          can modify the shared demo dataset.
+        </p>
+      </section>
+
       <section class="details" aria-label="Project details">
         <article class="detail">
           <h2>Technology</h2>
@@ -265,8 +329,8 @@
       </section>
 
       <footer>
-        Portfolio demonstration using fictional data. Demo access details will
-        be documented before deployment.
+        Portfolio demonstration only. The hosted authentication strategy is not
+        intended for a production system.
       </footer>
     </main>
   </body>

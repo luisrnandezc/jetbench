@@ -1,4 +1,4 @@
 ID,firstName,lastName,email,authId,role,isActive,organization_ID
 10000000-0000-0000-0000-000000000001,John,Doe,johndoe@example.com,johndoe@example.com,ORG_ADMIN,true,00000000-0000-0000-0000-000000000001
 10000000-0000-0000-0000-000000000002,Carol,Sturka,carolsturka@example.com,carolsturka@example.com,ORG_USER,true,00000000-0000-0000-0000-000000000002
-10000000-0000-0000-0000-000000000003,Luis,Hernández,platform@example.com,platform@example.com,PLATFORM_ADMIN,true,00000000-0000-0000-0000-000000000001
+10000000-0000-0000-0000-000000000003,Platform,Administrator,platform@example.com,platform@example.com,PLATFORM_ADMIN,true,00000000-0000-0000-0000-000000000001

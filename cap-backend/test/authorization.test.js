@@ -56,6 +56,18 @@ describe('JetBench authorization', () => {
 
       assert.equal(response.status, 401);
     });
+
+    test('rejects CAP built-in mock users', async () => {
+      const response = await GET(
+        `${REGISTRY_URL}/AircraftModels`,
+        expectAnyStatus({
+          username: 'alice',
+          password: 'alice',
+        }),
+      );
+
+      assert.equal(response.status, 401);
+    });
   });
 
   describe('service roles', () => {

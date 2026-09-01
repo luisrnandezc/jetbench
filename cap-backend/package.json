@@ -1,7 +1,7 @@
 {
   "name": "cap-backend",
   "version": "1.0.0",
-  "description": "A simple CAP project.",
+  "description": "SAP CAP backend for the JetBench fleet and engine management demo.",
   "dependencies": {
     "@cap-js/postgres": "^2.3.1",
     "@sap/cds": "^9",
@@ -21,7 +21,7 @@
   "cds": {
     "requires": {
       "auth": {
-        "kind": "mocked",
+        "kind": "basic",
         "users": {
           "platform@example.com": {
             "password": "platform",

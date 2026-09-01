@@ -154,6 +154,27 @@ Services:
 - `OrganizationService`: organization-scoped administration service.
 - `RegistryService`: organization-scoped read service for aircraft and engine registry data.
 
+## Demo Authentication
+
+JetBench uses three predefined HTTP Basic authentication accounts for local and
+hosted portfolio demonstrations:
+
+| Role | Username | Password |
+| --- | --- | --- |
+| Platform administrator | `platform@example.com` | `platform` |
+| Organization administrator | `johndoe@example.com` | `admin` |
+| Registry user | `carolsturka@example.com` | `user` |
+
+The accounts and all seeded records are fictional. Administrative accounts can
+modify the shared demo dataset. Browsers cache Basic authentication credentials
+for an origin, so use a private window or separate browser profile to switch
+users.
+
+This authentication configuration is intentionally limited to the portfolio
+environment. A production deployment would use SAP Cloud Identity Services,
+XSUAA, or another supported token-based identity provider. Passwords would not
+be stored in source control.
+
 ## Technology Stack
 
 - SAP Cloud Application Programming Model CAP

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "dependencies": {
+    "@cap-js/postgres": "^2.3.1",
     "@sap/cds": "^9",
     "cors": "^2.8.6",
     "express": "^4"

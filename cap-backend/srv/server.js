@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 const currentFile = fileURLToPath(import.meta.url);
 const currentDirectory = path.dirname(currentFile);
 const repositoryRoot = path.resolve(currentDirectory, '../..');
+const landingPage = path.join(currentDirectory, '../app/index.html');
 
 cds.on('bootstrap', (app) => {
   if (process.env.NODE_ENV !== 'production') {
@@ -43,7 +44,7 @@ cds.on('bootstrap', (app) => {
   });
 
   app.get('/', (_req, res) => {
-    res.redirect('/registry/');
+    res.sendFile(landingPage);
   });
 
   app.use((_req, res, next) => {

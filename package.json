@@ -1,0 +1,22 @@
+{
+  "name": "jetbench",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "install:backend": "npm ci --prefix cap-backend",
+    "install:admin": "npm ci --prefix fiori-frontend/apps/admin",
+    "install:organization": "npm ci --prefix fiori-frontend/apps/organization",
+    "install:registry": "npm ci --prefix fiori-frontend/apps/registry",
+    "install:all": "npm run install:backend && npm run install:admin && npm run install:organization && npm run install:registry",
+    "build:admin": "npm run build --prefix fiori-frontend/apps/admin",
+    "build:organization": "npm run build --prefix fiori-frontend/apps/organization",
+    "build:registry": "npm run build --prefix fiori-frontend/apps/registry",
+    "build": "npm run build:admin && npm run build:organization && npm run build:registry",
+    "test": "npm test --prefix cap-backend",
+    "verify": "npm run build && npm test",
+    "start": "npm start --prefix cap-backend"
+  }
+}

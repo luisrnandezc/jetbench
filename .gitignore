@@ -22,6 +22,8 @@ _out/
 # CAP / DB artifacts
 *.db
 *.sqlite
+*.sqlite-shm
+*.sqlite-wal
 gen/
 target/
 

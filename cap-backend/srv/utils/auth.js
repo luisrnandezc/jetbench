@@ -1,5 +1,7 @@
 import cds from '@sap/cds';
 
+const { SELECT } = cds.ql;
+
 export async function getCurrentUser(req) {
   const authId = req.user.id;
 

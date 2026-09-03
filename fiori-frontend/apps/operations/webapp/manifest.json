@@ -1,20 +1,28 @@
 {
-  "_version": "1.65.0",
+  "_version": "1.61.0",
   "sap.app": {
-    "id": "jetbench.registry",
+    "id": "jetbench.operations",
     "type": "application",
-    "title": "JetBench Registry",
+    "title": "JetBench Operations",
     "applicationVersion": {
       "version": "1.0.0"
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/registry/",
+        "uri": "/odata/v4/operations/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0"
         }
       }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
     }
   },
   "sap.ui5": {
@@ -25,8 +33,12 @@
         "sap.ui.core": {}
       }
     },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
     "rootView": {
-      "viewName": "jetbench.registry.view.App",
+      "viewName": "jetbench.operations.view.App",
       "type": "XML",
       "async": false,
       "id": "rootView"
@@ -47,7 +59,7 @@
       "config": {
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
-        "viewPath": "jetbench.registry.view",
+        "viewPath": "jetbench.operations.view",
         "controlId": "app",
         "controlAggregation": "pages",
         "async": true

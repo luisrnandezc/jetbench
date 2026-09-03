@@ -1,6 +1,6 @@
 specVersion: '4.0'
 metadata:
-  name: jetbench.registry
+  name: jetbench.operations
 type: application
 framework:
   name: OpenUI5
@@ -29,3 +29,4 @@ server:
 
     - name: ui5-middleware-livereload
       afterMiddleware: compression
+

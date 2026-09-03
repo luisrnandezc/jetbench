@@ -1,68 +1,160 @@
 <mvc:View
-  controllerName="jetbench.registry.controller.Main"
+  controllerName="jetbench.operations.controller.Main"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m">
-  <Page title="Registry App">
+
+  <Page title="JetBench Operations">
     <content>
-      <VBox class="sapUiSmallMargin">
-        <Title text="Aircraft Registered" level="H2" class="sapUiSmallMarginBottom" />
+      <VBox class="sapUiMediumMargin" width="auto">
+
+        <Toolbar>
+          <Title text="Flight Records" level="H2" />
+          <ToolbarSpacer />
+          <Button
+            text="New Flight Record"
+            icon="sap-icon://add"
+            type="Emphasized"
+            press=".onCreateFlightRecord" />
+        </Toolbar>
+
+        <Table
+          id="flightRecordsTable"
+          growing="true"
+          growingThreshold="20"
+          items="{
+            path: '/FlightRecords',
+            parameters: {
+              $expand: 'aircraft,recordedBy'
+            }
+          }">
+
+          <columns>
+            <Column>
+              <Text text="Date" />
+            </Column>
+            <Column>
+              <Text text="Aircraft" />
+            </Column>
+            <Column>
+              <Text text="Hours" />
+            </Column>
+            <Column>
+              <Text text="Cycles" />
+            </Column>
+            <Column>
+              <Text text="Recorded By" />
+            </Column>
+            <Column>
+              <Text text="Notes" />
+            </Column>
+          </columns>
+
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{flightDate}" />
+                <Text text="{aircraft/tailNumber}" />
+                <Text text="{flightHours}" />
+                <Text text="{cycles}" />
+                <Text text="{recordedBy/firstName} {recordedBy/lastName}" />
+                <Text text="{notes}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+
+        <Title text="Aircraft" level="H2" class="sapUiMediumMarginTop" />
+
         <Table
           id="aircraftTable"
           growing="true"
           growingThreshold="20"
-          items="{/Aircraft}">
+          items="{
+            path: '/Aircraft',
+            parameters: {
+              $expand: 'aircraftModel'
+            }
+          }">
+
           <columns>
-            <Column width="12rem" hAlign="Center"><Text text="Tail number" /></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Serial number" /></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Manufacturer" /></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Model" /></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Flight hours" /></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Cycles" /></Column>
+            <Column>
+              <Text text="Tail Number" />
+            </Column>
+            <Column>
+              <Text text="Model" />
+            </Column>
+            <Column>
+              <Text text="Flight Hours" />
+            </Column>
+            <Column>
+              <Text text="Cycles" />
+            </Column>
+            <Column>
+              <Text text="Status" />
+            </Column>
           </columns>
+
           <items>
             <ColumnListItem>
               <cells>
                 <Text text="{tailNumber}" />
-                <Text text="{serialNumber}" />
-                <Text text="{aircraftModel/manufacturer}" />
                 <Text text="{aircraftModel/name}" />
                 <Text text="{totalFlightHours}" />
                 <Text text="{totalCycles}" />
+                <Text text="{status}" />
               </cells>
             </ColumnListItem>
           </items>
         </Table>
-      </VBox>
-      <VBox class="sapUiSmallMargin">
-        <Title text="Engines Registered" level="H2" class="sapUiSmallMarginBottom" />
+
+        <Title text="Engines" level="H2" class="sapUiMediumMarginTop" />
+
         <Table
-          id="engineTable"
+          id="enginesTable"
           growing="true"
           growingThreshold="20"
-          items="{/Engines}">
+          items="{
+            path: '/Engines',
+            parameters: {
+              $expand: 'engineModel,aircraft'
+            }
+          }">
+
           <columns>
-            <Column width="12rem" hAlign="Center"><Text text="Engine S/N" /></Column>
-            <Column width="12rem" hAlign="Center"><Text text="Aircraft T/N" /></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Position code" /></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Manufacturer" /></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Model" /></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Flight hours" /></Column>
-            <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Cycles" /></Column>
+            <Column>
+              <Text text="Serial Number" />
+            </Column>
+            <Column>
+              <Text text="Model" />
+            </Column>
+            <Column>
+              <Text text="Aircraft" />
+            </Column>
+            <Column>
+              <Text text="Flight Hours" />
+            </Column>
+            <Column>
+              <Text text="Cycles" />
+            </Column>
+            <Column>
+              <Text text="Status" />
+            </Column>
           </columns>
+
           <items>
             <ColumnListItem>
               <cells>
                 <Text text="{engineSerialNumber}" />
-                <Text text="{aircraft/tailNumber}" />
-                <Text text="{positionCode}" />
-                <Text text="{engineModel/manufacturer}" />
                 <Text text="{engineModel/name}" />
+                <Text text="{aircraft/tailNumber}" />
                 <Text text="{totalFlightHours}" />
                 <Text text="{totalCycles}" />
+                <Text text="{status}" />
               </cells>
             </ColumnListItem>
           </items>
         </Table>
+
       </VBox>
     </content>
   </Page>

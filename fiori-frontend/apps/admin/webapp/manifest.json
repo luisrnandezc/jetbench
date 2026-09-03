@@ -1,5 +1,5 @@
 {
-  "_version": "1.65.0",
+  "_version": "1.61.0",
   "sap.app": {
     "id": "jetbench.admin",
     "type": "application",
@@ -17,6 +17,14 @@
       }
     }
   },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
   "sap.ui5": {
     "dependencies": {
       "minUI5Version": "1.143.1",
@@ -25,6 +33,10 @@
         "sap.ui.core": {},
         "sap.uxap": {}
       }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
     },
     "rootView": {
       "viewName": "jetbench.admin.view.App",

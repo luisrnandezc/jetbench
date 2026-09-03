@@ -39,6 +39,13 @@ cds.on('bootstrap', (app) => {
     ),
   );
 
+  app.use(
+    '/operations',
+    express.static(
+      path.join(repositoryRoot, 'fiori-frontend/apps/operations/dist'),
+    ),
+  );
+
   app.get('/health', (_req, res) => {
     res.status(200).json({ status: 'ok' });
   });

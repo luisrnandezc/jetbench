@@ -37,6 +37,21 @@ service AdminService {
     engineModel : redirected to EngineModels
   };
 
+  entity FlightRecords as projection on db.FlightRecord {
+    ID,
+    flightDate,
+    flightHours,
+    cycles,
+    notes,
+    createdAt,
+    createdBy,
+    modifiedAt,
+    modifiedBy,
+    aircraft,
+    organization,
+    recordedBy
+  };
+
   function me() returns Users;
 
 }
